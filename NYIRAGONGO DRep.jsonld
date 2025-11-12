@@ -59,30 +59,5 @@
     }
   },
   "authors": [],
-  "hashAlgorithm": "blake2b-256",
-  "body": {
-    "doNotList": true,
-    "givenName": "NYIRAGONGO DRep",
-    "image": {
-      "@type": "ImageObject",
-      "contentUrl": "https://x.com/Kennedymarcell7?t=KAFpb4lfugddl5bSe6nGLg&s=09",
-      "sha256": "dd6ba216a4989b77f35fb06e39ecc05bf056af7fb18f8d830d6b4c0e79ba688c"
-    },
-    "motivations": "I wish to become a DRep in order to engage my community and represent its interests in the decentralized governance of Cardano, because I believe in the power of collective participation to shape the future of blockchain",
-    "objectives": "Inspired by the strength and vitality of the Nyiragongo volcano, I aim to bring new energy to the Cardano community, helping to forge strong governance and build bridges between cultures and innovations.",
-    "paymentAddress": "addr1qy36n5d0fwpx9kj6xnljwtkncutesnuap4fgk5xfdnzvh4mhxv6aaeyrkz7z79yj0crjq3q88yq8gkxvd793q2trc0msgc6cjd",
-    "qualifications": "I have a strong understanding of how Cardano works, its voting mechanisms, and the challenges of decentralized governance, strengthened by my experience in project analysis and member support. I hold an ADA portfolio and have previously participated in governance and technical training initiatives. I am committed to acting with integrity, clearly communicating my decisions, and fostering dialogue and trust within the Cardano community.",
-    "references": [
-      {
-        "@type": "Link",
-        "label": "profil X",
-        "uri": "https://x.com/Kennedymarcell7?t=KAFpb4lfugddl5bSe6nGLg&s=09"
-      },
-      {
-        "@type": "Identity",
-        "label": "My name is Kennedy Birhaheka from the DRC and I am passionate about blockchain technology.  I have already participated in the activities of the Cardono government and in the Catalyst project as an evaluator.",
-        "uri": "https://x.com/Kennedymarcell7?t=KAFpb4lfugddl5bSe6nGLg&s=09"
-      }
-    ]
-  }
+  "hashAlgorithm": "blake2b-256"
 }
