@@ -1,0 +1,82 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP119": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0119/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP119:body",
+      "@context": {
+        "references": {
+          "@id": "CIP119:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Identity": "CIP119:IdentityReference",
+            "Link": "CIP119:LinkReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP119:referenceHash",
+              "@context": {
+                "hashDigest": "CIP119:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "paymentAddress": "CIP119:paymentAddress",
+        "givenName": "CIP119:givenName",
+        "image": {
+          "@id": "CIP119:image",
+          "@context": {
+            "ImageObject": "https://schema.org/ImageObject",
+            "contentUrl": "CIP119:contentUrl",
+            "sha256": "CIP119:sha256"
+          }
+        },
+        "objectives": "CIP119:objectives",
+        "motivations": "CIP119:motivations",
+        "qualifications": "CIP119:qualifications",
+        "doNotList": "CIP119:doNotList"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "givenName": "KENNEDY DRep",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://pbs.twimg.com/profile_banners/1490642862974849028/1759041837/1080x360",
+      "sha256": "cbd8bd27c8a5a162af1c3a6ae95dd1176c443502e904a5afe9d91db4f582d1dc"
+    },
+    "motivations": "I wish to become a DRep in order to engage my community and represent its interests in the decentralized governance of Cardano, because I believe in the power of collective participation to shape the future of blockchain",
+    "objectives": "Inspired by the strength and vitality of the Nyiragongo volcano, I aim to bring new energy to the Cardano community, helping to forge strong governance and build bridges between cultures and innovations.",
+    "paymentAddress": "addr_test1qq3vpvxw5r73y0v8a96f5t0dcmwr5xu8re66slc8ylz5yzkl8w3h990fdmxk865ug2jt9y7k4fkagv0sndljgttrjy7q29par4",
+    "qualifications": "I have a strong understanding of how Cardano works, its voting mechanisms, and the challenges of decentralized governance, strengthened by my experience in project analysis and member support. I hold an ADA portfolio and have previously participated in governance and technical training initiatives. I am committed to acting with integrity, clearly communicating my decisions, and fostering dialogue and trust within the Cardano community.",
+    "references": [
+      {
+        "@type": "Link",
+        "label": "twiter",
+        "uri": "https://x.com/Kennedymarcell7?t=KAFpb4lfugddl5bSe6nGLg&s=09"
+      }
+    ]
+  }
+}
