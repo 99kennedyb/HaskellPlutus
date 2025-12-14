@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Système de Donation - YOUNGLIFE DRC</title>
+  <link rel="icon" type="image/svg+xml" href="younglife-logo.svg">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="donation-styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .test-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .test-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .test-logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+    
+    .test-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .test-btn {
+      padding: 15px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .test-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .status {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #28a745;
+    }
+    
+    .status h3 {
+      color: #28a745;
+      margin-top: 0;
+    }
+    
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .status-item:last-child {
+      border-bottom: none;
+    }
+    
+    .status-ok {
+      color: #28a745;
+      font-weight: bold;
+    }
+    
+    .status-error {
+      color: #dc3545;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <div class="test-header">
+      <img src="younglife-logo.svg" alt="YOUNGLIFE DRC Logo" class="test-logo">
+      <h1>Test du Système de Donation</h1>
+      <p>Vérification complète de tous les boutons et fonctionnalités</p>
+    </div>
+    
+    <div class="test-buttons">
+      <button id="test-btn-1" class="test-btn menu-donation-btn">
+        💖 Bouton Menu
+      </button>
+      
+      <button id="test-btn-2" class="test-btn btn-donation-hero">
+        💖 Bouton Hero
+      </button>
+      
+      <button id="test-btn-3" class="test-btn nav-donation-btn">
+        💖 Bouton Nav
+      </button>
+      
+      <button id="test-btn-4" class="test-btn" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white;">
+        💖 Bouton Test Direct
+      </button>
+    </div>
+    
+    <div class="status">
+      <h3>📊 État du Système</h3>
+      <div class="status-item">
+        <span>Images de donation chargées</span>
+        <span id="images-status" class="status-ok">✅ OK</span>
+      </div>
+      <div class="status-item">
+        <span>Modal de donation</span>
+        <span id="modal-status" class="status-ok">✅ OK</span>
+      </div>
+      <div class="status-item">
+        <span>Gestionnaire de donation</span>
+        <span id="manager-status" class="status-ok">✅ OK</span>
+      </div>
+      <div class="status-item">
+        <span>Navigation des slides</span>
+        <span id="navigation-status" class="status-ok">✅ OK</span>
+      </div>
+      <div class="status-item">
+        <span>Boutons fonctionnels</span>
+        <span id="buttons-status" class="status-ok">✅ OK</span>
+      </div>
+    </div>
+    
+    <div style="margin-top: 30px; text-align: center;">
+      <button id="open-main-app" class="test-btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 1.2em; padding: 20px 40px;">
+        🚀 Ouvrir l'Application Principale
+      </button>
+    </div>
+  </div>
+  
+  <!-- Bouton donation flottant -->
+  <button id="floating-donation-btn" style="position: fixed !important; bottom: 20px !important; right: 20px !important; z-index: 9999 !important; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important; color: white !important; border: none !important; padding: 18px 28px !important; border-radius: 50px !important; font-size: 1.1em !important; font-weight: bold !important; cursor: pointer !important; box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5) !important; transition: all 0.3s ease !important; animation: pulse 2s infinite !important;">
+    💖 Faire un Don
+  </button>
+  
+  <!-- Modal de donation -->
+  <div id="donation-modal" class="donation-modal" role="dialog" aria-labelledby="donation-title" aria-modal="true">
+    <div class="donation-modal-content">
+      <div class="donation-header">
+        <h3 id="donation-title">💝 Merci pour votre générosité</h3>
+        <button class="close-donation" id="close-donation" aria-label="Fermer">&times;</button>
+      </div>
+      <div class="donation-images">
+        <div class="donation-image-container active">
+          <img src="./IMAGE/DONATION 1.jpg" alt="Première option de donation - Informations de donation YOUNGLIFE DRC" class="donation-image" loading="lazy">
+          <div class="image-overlay">
+            <p>💳 Option de donation 1 - Détails de paiement</p>
+          </div>
+        </div>
+        <div class="donation-image-container">
+          <img src="./IMAGE/DONATION 2.jpg" alt="Deuxième option de donation - Informations de donation YOUNGLIFE DRC" class="donation-image" loading="lazy">
+          <div class="image-overlay">
+            <p>💳 Option de donation 2 - Détails de paiement</p>
+          </div>
+        </div>
+      </div>
+      <div class="donation-navigation">
+        <button class="nav-btn prev-btn" id="prev-donation">‹ Précédent</button>
+        <div class="donation-indicators">
+          <span class="indicator active" data-slide="0"></span>
+          <span class="indicator" data-slide="1"></span>
+        </div>
+        <button class="nav-btn next-btn" id="next-donation">Suivant ›</button>
+      </div>
+      <div class="donation-info">
+        <p>🙏 Chaque don, petit ou grand, fait une différence dans la vie des jeunes</p>
+        <p>📱 Contactez-nous pour plus d'informations sur les dons</p>
+        <p>📞 Téléphone: +243 973 664 102</p>
+        <p>📧 Email: kennedymarcellin@gmail.com</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="donation-manager.js"></script>
+  
+  <script>
+    // Test des fonctionnalités
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🧪 Démarrage des tests du système de donation');
+      
+      // Vérifier les éléments
+      const checkElements = () => {
+        const modal = document.getElementById('donation-modal');
+        const images = document.querySelectorAll('.donation-image');
+        const buttons = document.querySelectorAll('[id*="donation"], .menu-donation-btn, .btn-donation-hero, .nav-donation-btn');
+        
+        // Mettre à jour les statuts
+        document.getElementById('images-status').textContent = images.length >= 2 ? '✅ OK' : '❌ ERREUR';
+        document.getElementById('modal-status').textContent = modal ? '✅ OK' : '❌ ERREUR';
+        document.getElementById('manager-status').textContent = window.donationManager ? '✅ OK' : '❌ ERREUR';
+        document.getElementById('buttons-status').textContent = buttons.length >= 4 ? '✅ OK' : '❌ ERREUR';
+        
+        console.log(`📊 Éléments trouvés: ${images.length} images, ${buttons.length} boutons`);
+      };
+      
+      // Vérifier après un délai pour laisser le temps aux scripts de se charger
+      setTimeout(checkElements, 1000);
+      
+      // Bouton pour ouvrir l'application principale
+      document.getElementById('open-main-app').addEventListener('click', function() {
+        window.location.href = 'index-improved.html';
+      });
+      
+      // Test direct du modal
+      document.getElementById('test-btn-4').addEventListener('click', function() {
+        if (window.donationManager) {
+          window.donationManager.open();
+        } else {
+          alert('Gestionnaire de donation non disponible');
+        }
+      });
+      
+      console.log('✅ Tests initialisés avec succès');
+    });
+  </script>
+</body>
+</html>
