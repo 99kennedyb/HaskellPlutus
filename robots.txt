@@ -1,0 +1,14 @@
+# YOUNGLIFE DRC - Robots.txt
+# Configuration pour les moteurs de recherche
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://younglifedrc.com/sitemap.xml
+
+# Crawl-delay (optional)
+Crawl-delay: 10

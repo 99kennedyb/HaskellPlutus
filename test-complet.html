@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Complet - YOUNGLIFE DRC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        /* Menu Hamburger */
+        .landing-hamburger-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .landing-hamburger {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border: 2px solid #667eea;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .landing-hamburger:hover {
+            background: #667eea;
+            transform: scale(1.05);
+        }
+        
+        .landing-hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #667eea;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+        
+        .landing-hamburger:hover span {
+            background: white;
+        }
+        
+        .landing-hamburger.active {
+            background: #667eea;
+        }
+        
+        .landing-hamburger.active span {
+            background: white;
+        }
+        
+        .landing-hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        
+        .landing-hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .landing-hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
+        .landing-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            min-width: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+        }
+        
+        .landing-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .menu-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px 0;
+        }
+        
+        .menu-step-badge {
+            display: block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .menu-step-badge:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* BOUTON DONATION DANS LE MENU */
+        .menu-donation-btn {
+            display: block;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin-top: 15px;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-donation-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+        
+        .menu-donation-btn:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .menu-donation-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.6);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: translateY(-3px) scale(1.05); }
+            50% { transform: translateY(-3px) scale(1.1); }
+        }
+        
+        /* Contenu principal */
+        .content {
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .instructions h2 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .instructions p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: rgba(255, 107, 107, 0.8);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Hamburger -->
+    <div class="landing-hamburger-container">
+        <button class="landing-hamburger" id="landing-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="landing-menu" id="landing-menu">
+            <div class="menu-steps">
+                <a href="#" class="menu-step-badge">1️⃣ Accueil</a>
+                <a href="#" class="menu-step-badge">2️⃣ Connexion</a>
+                <a href="#" class="menu-step-badge">3️⃣ Méditation</a>
+                <button class="menu-donation-btn" id="menu-donation-btn">💖 FAIRE UN DON</button>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Contenu principal -->
+    <div class="content">
+        <h1>YOUNGLIFE DRC</h1>
+        <p class="subtitle">Test du bouton donation</p>
+        
+        <div class="instructions">
+            <h2>📋 Instructions de test :</h2>
+            <p>1. Cliquez sur le <span class="highlight">menu hamburger (3 barres)</span> en haut à droite</p>
+            <p>2. Le menu devrait s'ouvrir avec les options de navigation</p>
+            <p>3. Vous devriez voir le <span class="highlight">bouton rouge "💖 FAIRE UN DON"</span></p>
+            <p>4. Cliquez sur ce bouton pour tester</p>
+        </div>
+        
+        <p>Si vous voyez le bouton donation rouge dans le menu, alors il fonctionne correctement !</p>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('landing-hamburger');
+            const menu = document.getElementById('landing-menu');
+            const donationBtn = document.getElementById('menu-donation-btn');
+            
+            // Ouvrir/fermer le menu
+            hamburger.addEventListener('click', function() {
+                menu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                console.log('Menu toggled:', menu.classList.contains('active'));
+            });
+            
+            // Bouton donation
+            donationBtn.addEventListener('click', function() {
+                alert('🎉 SUCCÈS ! Le bouton donation fonctionne !\n\nDans la vraie application, cela ouvrirait le modal avec les photos de donation.');
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+            
+            // Fermer le menu en cliquant à l'extérieur
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+            
+            console.log('Script chargé - éléments trouvés:', {
+                hamburger: !!hamburger,
+                menu: !!menu,
+                donationBtn: !!donationBtn
+            });
+        });
+    </script>
+</body>
+</html>

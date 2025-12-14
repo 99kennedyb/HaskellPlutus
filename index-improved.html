@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="YOUNGLIFE DRC - Transformez votre vie spirituelle avec la méthode DBS (Discovery Bible Study). Méditez quotidiennement sur la Parole de Dieu.">
+  <meta name="keywords" content="DBS, étude biblique, méditation, YOUNGLIFE, RDC, Congo, spiritualité, Bible">
+  <meta name="author" content="YOUNGLIFE DRC">
+  <meta name="theme-color" content="#667eea">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="YOUNGLIFE DRC - Discovery Bible Study">
+  <meta property=C"og:description" content="Transformez votre vie spirituelle avec la méthode DBS">
+  <meta property="og:image" content="/IMAGE/IMG_2018 copie.jpg">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="YOUNGLIFE DRC - Discovery Bible Study">
+  <meta name="twitter:description" content="Transformez votre vie spirituelle avec la méthode DBS">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="younglife-logo.svg">
+  
+  <title>YOUNGLIFE DRC - Étude Biblique DBS | Méditation Quotidienne</title>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="donation-styles.css">
+  
+  <!-- Styles pour garantir la visibilité des boutons donation -->
+  <style>
+    /* Force l'affichage du bouton donation dans le menu */
+    .menu-donation-btn {
+      display: block !important;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important;
+      color: white !important;
+      padding: 15px 20px !important;
+      border-radius: 12px !important;
+      font-size: 1.2em !important;
+      font-weight: 700 !important;
+      text-align: center !important;
+      border: none !important;
+      cursor: pointer !important;
+      margin-top: 15px !important;
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4) !important;
+      transition: all 0.3s ease !important;
+      width: 100% !important;
+    }
+    
+    .menu-donation-btn:hover {
+      transform: translateY(-3px) scale(1.05) !important;
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.6) !important;
+    }
+    
+    /* Force l'affichage du bouton hero */
+    .btn-donation-hero {
+      display: inline-block !important;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important;
+      color: white !important;
+      border: none !important;
+      padding: 20px 50px !important;
+      font-size: 1.3em !important;
+      font-weight: bold !important;
+      border-radius: 50px !important;
+      cursor: pointer !important;
+      margin-top: 20px !important;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4) !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .btn-donation-hero:hover {
+      transform: translateY(-5px) scale(1.05) !important;
+      box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6) !important;
+    }
+    
+    /* S'assurer que le menu hamburger fonctionne */
+    .landing-menu {
+      position: absolute !important;
+      top: 60px !important;
+      right: 0 !important;
+      background: white !important;
+      border-radius: 12px !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+      padding: 15px !important;
+      min-width: 250px !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transform: translateY(-10px) !important;
+      transition: all 0.3s !important;
+      z-index: 999 !important;
+    }
+    
+    .landing-menu.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+    }
+    
+    /* Hamburger button */
+    .landing-hamburger {
+      display: flex !important;
+      flex-direction: column !important;
+      background: white !important;
+      border: 2px solid #667eea !important;
+      cursor: pointer !important;
+      padding: 10px !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+      transition: all 0.3s !important;
+    }
+    
+    .landing-hamburger span {
+      width: 25px !important;
+      height: 3px !important;
+      background: #667eea !important;
+      margin: 3px 0 !important;
+      transition: 0.3s !important;
+      border-radius: 3px !important;
+    }
+    
+    .landing-hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px) !important;
+    }
+    
+    .landing-hamburger.active span:nth-child(2) {
+      opacity: 0 !important;
+    }
+    
+    .landing-hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px) !important;
+    }
+    
+    /* === ANIMATION PULSE === */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    #floating-donation-btn:hover {
+      transform: translateY(-5px) scale(1.15) !important;
+      box-shadow: 0 15px 40px rgba(255, 107, 107, 0.7) !important;
+      animation: none !important;
+    }
+    
+    /* === MODAL DONATION COMPLET === */
+    .donation-modal {
+      display: none !important;
+      position: fixed !important;
+      z-index: 10000 !important;
+      left: 0 !important;
+      top: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: rgba(0, 0, 0, 0.8) !important;
+      backdrop-filter: blur(10px) !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+    
+    .donation-modal.show {
+      display: flex !important;
+    }
+    
+    .donation-modal-content {
+      background: white !important;
+      padding: 40px !important;
+      border-radius: 25px !important;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5) !important;
+      max-width: 600px !important;
+      width: 90% !important;
+      position: relative !important;
+      animation: slideIn 0.5s ease !important;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(100px) scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .donation-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-bottom: 30px !important;
+      border-bottom: 3px solid #ff6b6b !important;
+      padding-bottom: 15px !important;
+    }
+    
+    .donation-header h3 {
+      color: #ff6b6b !important;
+      font-size: 1.8em !important;
+      font-weight: 800 !important;
+      margin: 0 !important;
+    }
+    
+    .close-donation {
+      background: none !important;
+      border: none !important;
+      font-size: 2.5em !important;
+      color: #999 !important;
+      cursor: pointer !important;
+      transition: all 0.3s !important;
+      padding: 0 !important;
+      width: 50px !important;
+      height: 50px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 50% !important;
+    }
+    
+    .close-donation:hover {
+      color: #ff6b6b !important;
+      background: rgba(255, 107, 107, 0.1) !important;
+      transform: rotate(90deg) scale(1.1) !important;
+    }
+    
+    .donation-images {
+      position: relative !important;
+      width: 100% !important;
+      height: 400px !important;
+      border-radius: 20px !important;
+      overflow: hidden !important;
+      margin-bottom: 25px !important;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    .donation-image-container {
+      position: absolute !important;
+      width: 100% !important;
+      height: 100% !important;
+      opacity: 0 !important;
+      transform: translateX(100px) !important;
+      transition: all 0.6s ease !important;
+    }
+    
+    .donation-image-container.active {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+    }
+    
+    .donation-image-container.prev {
+      transform: translateX(-100px) !important;
+    }
+    
+    .donation-image {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      transition: transform 0.4s ease !important;
+    }
+    
+    .donation-image-container:hover .donation-image {
+      transform: scale(1.05) !important;
+    }
+    
+    .donation-image-container .image-overlay {
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      background: linear-gradient(to top, rgba(255, 107, 107, 0.9), transparent) !important;
+      padding: 20px !important;
+      color: white !important;
+      transform: translateY(100%) !important;
+      transition: transform 0.4s ease !important;
+    }
+    
+    .donation-image-container:hover .image-overlay {
+      transform: translateY(0) !important;
+    }
+    
+    .donation-image-container .image-overlay p {
+      margin: 0 !important;
+      font-size: 1.2em !important;
+      font-weight: 600 !important;
+      text-align: center !important;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    .donation-navigation {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-bottom: 25px !important;
+      padding: 0 20px !important;
+    }
+    
+    .nav-btn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important;
+      color: white !important;
+      border: none !important;
+      padding: 12px 20px !important;
+      border-radius: 25px !important;
+      cursor: pointer !important;
+      font-size: 1em !important;
+      font-weight: 600 !important;
+      transition: all 0.3s ease !important;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3) !important;
+    }
+    
+    .nav-btn:hover {
+      transform: translateY(-3px) scale(1.05) !important;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4) !important;
+    }
+    
+    .nav-btn:disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+    }
+    
+    .donation-indicators {
+      display: flex !important;
+      gap: 10px !important;
+      align-items: center !important;
+    }
+    
+    .indicator {
+      width: 12px !important;
+      height: 12px !important;
+      border-radius: 50% !important;
+      background: rgba(255, 107, 107, 0.3) !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .indicator.active {
+      background: #ff6b6b !important;
+      transform: scale(1.3) !important;
+      box-shadow: 0 0 15px rgba(255, 107, 107, 0.6) !important;
+    }
+    
+    .indicator:hover {
+      background: #ff6b6b !important;
+      transform: scale(1.2) !important;
+    }
+    
+    .donation-info {
+      text-align: center !important;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+      padding: 25px !important;
+      border-radius: 15px !important;
+      border-left: 4px solid #ff6b6b !important;
+    }
+    
+    .donation-info p {
+      color: #555 !important;
+      margin: 10px 0 !important;
+      font-size: 1.1em !important;
+      line-height: 1.6 !important;
+    }
+    
+    .donation-info p:first-child {
+      font-weight: 600 !important;
+      color: #ff6b6b !important;
+    }
+  </style>
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="./IMAGE/IMG_2018 copie.jpg" as="image">
+</head>
+<body>
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  
+  <!-- Bouton donation flottant toujours visible -->
+  <button id="floating-donation-btn" style="position: fixed !important; bottom: 20px !important; right: 20px !important; z-index: 9999 !important; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important; color: white !important; border: none !important; padding: 20px 30px !important; border-radius: 50px !important; font-size: 1.2em !important; font-weight: bold !important; cursor: pointer !important; box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5) !important; transition: all 0.3s ease !important; animation: pulse 2s infinite !important;">
+    💖 Faire un Don
+  </button>
+  
+  <!-- Landing Page -->
+  <div id="landing-page" class="landing-page">
+    <!-- Landing Page Hamburger Menu -->
+    <div class="landing-hamburger-container">
+      <button class="landing-hamburger" id="landing-hamburger" aria-label="Menu de navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="landing-menu" id="landing-menu" role="navigation" aria-label="Menu principal">
+        <div class="menu-steps">
+          <a href="#hero" class="menu-step-badge" id="step-accueil">1️⃣ Accueil</a>
+          <a href="#auth-page" class="menu-step-badge" id="step-connexion">2️⃣ Connexion</a>
+          <a href="#app-page" class="menu-step-badge" id="step-meditation">3️⃣ Méditation</a>
+          <button class="menu-donation-btn" id="menu-donation-btn" style="display: block !important; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important; color: white !important; padding: 15px 20px !important; border-radius: 12px !important; font-size: 1.2em !important; font-weight: 700 !important; text-align: center !important; border: none !important; cursor: pointer !important; margin-top: 15px !important; box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4) !important;">💖 FAIRE UN DON</button>
+        </div>
+      </nav>
+    </div>
+    
+    <div class="landing-container">
+      <!-- Hero Section -->
+      <section class="hero-landing" id="hero">
+        <div class="hero-content">
+          <div class="hero-logo">
+            <img src="younglife-logo.svg" alt="YOUNGLIFE DRC Logo" class="logo-image" width="120" height="120">
+          </div>
+          <h1 class="hero-title">YOUNGLIFE DRC</h1>
+          <h2 class="hero-subtitle">DBS - Discovery Bible Study</h2>
+          <p class="hero-description">✨ Transformez votre vie spirituelle avec la méthode DBS</p>
+          <button id="start-btn" class="btn-hero" aria-label="Commencer votre parcours spirituel">
+            🚀 Commencer Maintenant
+          </button>
+          <button id="hero-donation-btn" class="btn-donation-hero" aria-label="Faire un don pour soutenir YOUNGLIFE DRC">
+            💖 Faire un Don
+          </button>
+        </div>
+        <div class="hero-image-landing">
+          <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=800&q=80" alt="Jeunes en prière et méditation biblique - YOUNGLIFE DRC" loading="eager" width="550" height="400">
+        </div>
+      </section>
+
+      <!-- About DBS Section -->
+      <section class="about-dbs" id="about">
+        <h2>📖 Qu'est-ce que le DBS ?</h2>
+        <div class="dbs-grid">
+          <article class="dbs-card">
+            <div class="dbs-icon" aria-hidden="true">🔍</div>
+            <h3>Découverte</h3>
+            <p>Découvrez par vous-même les vérités bibliques à travers une étude interactive et participative.</p>
+          </article>
+          <article class="dbs-card">
+            <div class="dbs-icon" aria-hidden="true">💡</div>
+            <h3>Compréhension</h3>
+            <p>Comprenez le message de Dieu pour votre vie avec 4 questions simples et puissantes.</p>
+          </article>
+          <article class="dbs-card">
+            <div class="dbs-icon" aria-hidden="true">🎯</div>
+            <h3>Application</h3>
+            <p>Appliquez immédiatement ce que vous apprenez dans votre vie quotidienne.</p>
+          </article>
+          <article class="dbs-card">
+            <div class="dbs-icon" aria-hidden="true">🤝</div>
+            <h3>Partage</h3>
+            <p>Partagez avec d'autres et multipliez les disciples qui font des disciples.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features-landing" id="features">
+        <h2>✨ Fonctionnalités de l'Application</h2>
+        <div class="features-grid">
+          <article class="feature-item">
+            <img src="./IMAGE/_MG_1181 copie.jpg" alt="Verset quotidien avec image inspirante" loading="lazy" width="400" height="200">
+            <h3>📖 Verset Quotidien</h3>
+            <p>Un verset biblique différent chaque jour avec une image inspirante pour votre méditation.</p>
+          </article>
+          <article class="feature-item">
+            <img src="./IMAGE/_MG_1594 copie.jpg" alt="Questions DBS pour méditation" loading="lazy" width="400" height="200">
+            <h3>🤔 4 Questions DBS</h3>
+            <p>Méditez avec les 4 questions essentielles : Que dit-il ? Que signifie-t-il ? Comment l'appliquer ? Avec qui partager ?</p>
+          </article>
+          <article class="feature-item">
+            <img src="./IMAGE/_MG_1602.jpg" alt="Historique personnel de méditations" loading="lazy" width="400" height="200">
+            <h3>💾 Historique Personnel</h3>
+            <p>Sauvegardez toutes vos méditations et suivez votre progression spirituelle.</p>
+          </article>
+          <article class="feature-item">
+            <img src="./IMAGE/IMG_2018 copie.jpg" alt="Communauté YOUNGLIFE mondiale" loading="lazy" width="400" height="200">
+            <h3>🌍 Communauté Mondiale</h3>
+            <p>Rejoignez des milliers de jeunes à travers le monde dans leur marche avec Dieu.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="contact-landing" id="contact">
+        <h2>📞 Contactez-Nous</h2>
+        <div class="contact-info">
+          <article class="contact-item">
+            <div class="contact-icon" aria-hidden="true">📱</div>
+            <h3>Téléphone / WhatsApp</h3>
+            <a href="tel:+243973664102" class="contact-link" aria-label="Appeler au +243 973 664 102">+243 973 664 102</a>
+          </article>
+          <article class="contact-item">
+            <div class="contact-icon" aria-hidden="true">📧</div>
+            <h3>Email</h3>
+            <a href="mailto:kennedymarcellin@gmail.com" class="contact-link" aria-label="Envoyer un email à kennedymarcellin@gmail.com">kennedymarcellin@gmail.com</a>
+          </article>
+          <article class="contact-item">
+            <div class="contact-icon" aria-hidden="true">🌍</div>
+            <h3>Localisation</h3>
+            <p class="contact-text">Kinshasa, RDC</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Donation Section -->
+      <section class="donation-section" id="donation">
+        <h2>� 💝 Soutenez Notre Mission</h2>
+        <p>Votre générosité nous aide à toucher plus de jeunes avec la Parole de Dieu</p>
+        <button id="donation-btn" class="btn-donation" aria-label="Faire un don pour soutenir YOUNGLIFE DRC">
+          💖 Faire un Don
+        </button>
+        
+        <!-- Donation Modal -->
+        <div id="donation-modal" class="donation-modal" role="dialog" aria-labelledby="donation-title" aria-modal="true">
+          <div class="donation-modal-content">
+            <div class="donation-header">
+              <h3 id="donation-title">💝 Merci pour votre générosité</h3>
+              <button class="close-donation" id="close-donation" aria-label="Fermer">&times;</button>
+            </div>
+            <div class="donation-images">
+              <div class="donation-image-container active">
+                <img src="./IMAGE/DONATION 1.jpg" alt="Première option de donation - Informations de donation YOUNGLIFE DRC" class="donation-image" loading="lazy">
+                <div class="image-overlay">
+                  <p>💳 Option de donation 1 - Détails de paiement</p>
+                </div>
+              </div>
+              <div class="donation-image-container">
+                <img src="./IMAGE/DONATION 2.jpg" alt="Deuxième option de donation - Informations de donation YOUNGLIFE DRC" class="donation-image" loading="lazy">
+                <div class="image-overlay">
+                  <p>💳 Option de donation 2 - Détails de paiement</p>
+                </div>
+              </div>
+            </div>
+            <div class="donation-navigation">
+              <button class="nav-btn prev-btn" id="prev-donation">‹ Précédent</button>
+              <div class="donation-indicators">
+                <span class="indicator active" data-slide="0"></span>
+                <span class="indicator" data-slide="1"></span>
+              </div>
+              <button class="nav-btn next-btn" id="next-donation">Suivant ›</button>
+            </div>
+            <div class="donation-info">
+              <p>🙏 Chaque don, petit ou grand, fait une différence dans la vie des jeunes</p>
+              <p>📱 Contactez-nous pour plus d'informations sur les dons</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-landing">
+        <h2>🚀 Prêt à Commencer ?</h2>
+        <p>Rejoignez des milliers de jeunes qui transforment leur vie avec la Parole de Dieu</p>
+        <button id="start-btn-2" class="btn-hero" aria-label="Créer votre compte gratuit">Créer Mon Compte Gratuit</button>
+      </section>
+
+      <!-- Footer -->
+      <footer class="landing-footer" role="contentinfo">
+        <p>&copy; 2024-2025 YOUNGLIFE DRC - Tous droits réservés</p>
+        <p>Faire des disciples qui font des disciples 🙏</p>
+        <p class="footer-links">
+          <a href="tel:+243973664102" aria-label="Appeler YOUNGLIFE DRC">📱 Contact</a> | 
+          <a href="mailto:kennedymarcellin@gmail.com" aria-label="Envoyer un email">📧 Email</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Authentication Page -->
+  <div id="auth-page" class="auth-page" style="display: none;">
+    <div class="auth-container">
+      <div class="auth-header">
+        <button class="btn-back" id="back-to-home" aria-label="Retourner à la page d'accueil">← Retour à l'accueil</button>
+        <div class="auth-brand">
+          <img src="younglife-logo.svg" alt="YOUNGLIFE DRC Logo" class="auth-logo" width="100" height="100">
+          <h1>YOUNGLIFE DRC</h1>
+          <p>DBS - Discovery Bible Study</p>
+        </div>
+      </div>
+      
+      <main class="auth-content" id="main-content">
+        <h2 id="auth-title">Connexion</h2>
+      
+      <!-- How It Works Section -->
+      <div class="how-it-works-section">
+        <div class="info-box">
+          <h3>📖 Comment ça fonctionne ?</h3>
+          <div class="steps-list">
+            <div class="step-item">
+              <span class="step-number" aria-hidden="true">1</span>
+              <div class="step-content">
+                <strong>Créez votre compte</strong>
+                <p>Inscrivez-vous gratuitement avec un nom d'utilisateur et mot de passe</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-number" aria-hidden="true">2</span>
+              <div class="step-content">
+                <strong>Méditez quotidiennement</strong>
+                <p>Recevez un verset biblique chaque jour avec une image inspirante</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-number" aria-hidden="true">3</span>
+              <div class="step-content">
+                <strong>Répondez aux 4 questions DBS</strong>
+                <p>Approfondissez votre compréhension avec la méthode Discovery Bible Study</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-number" aria-hidden="true">4</span>
+              <div class="step-content">
+                <strong>Partagez avec la communauté</strong>
+                <p>Encouragez d'autres croyants en partageant vos expériences spirituelles</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="login-username">👤 Nom d'utilisateur</label>
+          <input type="text" id="login-username" name="username" placeholder="votre_nom_utilisateur" required autocomplete="username" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="login-password">🔒 Mot de passe</label>
+          <input type="password" id="login-password" name="password" placeholder="Votre mot de passe" required autocomplete="current-password" aria-required="true">
+        </div>
+        <button type="submit" class="btn btn-auth">Se connecter</button>
+      </form>
+      
+      <!-- Registration Form -->
+      <form id="register-form" class="auth-form" style="display: none;" novalidate>
+        <div class="form-group">
+          <label for="reg-username">👤 Nom d'utilisateur *</label>
+          <input type="text" id="reg-username" name="username" placeholder="nom_utilisateur" required minlength="3" pattern="[a-zA-Z0-9_]+" title="Lettres, chiffres et underscore uniquement" autocomplete="username" aria-required="true">
+          <small class="form-help">Lettres, chiffres et underscore (_) uniquement, minimum 3 caractères</small>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-firstname">👤 Prénom *</label>
+            <input type="text" id="reg-firstname" name="firstname" placeholder="Prénom" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="reg-lastname">👤 Nom *</label>
+            <input type="text" id="reg-lastname" name="lastname" placeholder="Nom" required aria-required="true">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="reg-email">📧 Email</label>
+          <input type="email" id="reg-email" name="email" placeholder="votre.email@exemple.com (optionnel)" autocomplete="email">
+          <small class="form-help">Optionnel - pour récupération de compte</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="reg-phone">📱 Téléphone *</label>
+          <input type="tel" id="reg-phone" name="phone" placeholder="+243 123 456 789" required aria-required="true">
+          <small class="form-help">Format : +243 123 456 789 (avec le code pays)</small>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-city">🏙️ Ville</label>
+            <input type="text" id="reg-city" name="city" placeholder="Ville">
+          </div>
+          <div class="form-group">
+            <label for="reg-address">🏠 Adresse</label>
+            <input type="text" id="reg-address" name="address" placeholder="Adresse complète">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="reg-country-select">🌍 Pays *</label>
+          <select id="reg-country-select" name="country" required aria-required="true">
+            <option value="">Sélectionnez votre pays</option>
+          </select>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-password">🔒 Mot de passe *</label>
+            <input type="password" id="reg-password" name="password" placeholder="Minimum 8 caractères" required minlength="8" autocomplete="new-password" aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="reg-confirm-password">🔒 Confirmer *</label>
+            <input type="password" id="reg-confirm-password" name="confirm-password" placeholder="Confirmez le mot de passe" required autocomplete="new-password" aria-required="true">
+          </div>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="reg-terms" name="terms" required aria-required="true">
+            <span>J'accepte les conditions d'utilisation et la politique de confidentialité *</span>
+          </label>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="reg-newsletter" name="newsletter">
+            <span>Je souhaite recevoir des méditations quotidiennes par email</span>
+          </label>
+        </div>
+        
+        <button type="submit" class="btn btn-auth">Créer mon compte</button>
+        <p class="form-note">* Champs obligatoires</p>
+      </form>
+      
+      <p class="auth-switch">
+        <span id="auth-switch-text">Pas de compte?</span>
+        <a href="#" id="auth-toggle">Créer un compte</a>
+      </p>
+      </main>
+    </div>
+  </div>
+
+  <!-- Application Page (Meditation) -->
+  <div id="app-page" class="app-page" style="display: none;">
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="main-navbar" role="navigation" aria-label="Navigation principale">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="younglife-logo.svg" alt="YOUNGLIFE DRC Logo" class="nav-logo" width="40" height="40">
+        <div class="brand-text">
+          <span class="brand-main">YOUNGLIFE DRC</span>
+          <span class="brand-sub">DBS</span>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu de navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home">Accueil</a></li>
+        <li><a href="#verse">Verset du Jour</a></li>
+        <li><a href="#meditation">Méditation</a></li>
+        <li><a href="#history">Mes Réponses</a></li>
+        <li><a href="#community">🌟 Communauté</a></li>
+        <li><button class="nav-donation-btn" id="nav-donation-btn">💖 Faire un Don</button></li>
+        <li><a href="#" id="profile-btn">👤 Mon Profil</a></li>
+        <li><a href="#" id="logout-btn">Déconnexion</a></li>
+      </ul>
+      <div class="user-info">
+        <span id="current-user"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" id="main-container" style="display: none;">
+    <header id="home">
+      <h1>YOUNGLIFE DRC</h1>
+      <h2 class="subtitle-dbs">DBS - Étude Biblique</h2>
+      <h3><i>Enseignez-vous pour vivre la bonté de Dieu</i></h3>
+    </header>
+    
+    <hr>
+    
+    <div class="content">
+      <div class="hero-section">
+        <div class="hero-image">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="80" fill="url(#grad1)" opacity="0.2"/>
+            <path d="M100,40 L100,160 M70,70 L100,40 L130,70" stroke="url(#grad1)" stroke-width="4" fill="none"/>
+            <circle cx="100" cy="100" r="60" stroke="url(#grad1)" stroke-width="3" fill="none"/>
+            <text x="100" y="110" font-size="60" fill="url(#grad1)" text-anchor="middle" font-family="serif">✝</text>
+          </svg>
+        </div>
+        <p class="hero-text">La méditation demande beaucoup de concentration et de dévotion</p>
+      </div>
+      
+      <!-- Daily Verse Section -->
+      <section class="daily-verse" id="verse">
+        <div class="verse-header">
+          <h2>📖 Verset du Jour</h2>
+          <div class="verse-counter">
+            <span id="current-verse-number">1</span> / <span id="total-verses">365</span>
+            <p class="verse-info">♾️ Cycle perpétuel - Versets disponibles pour toujours</p>
+          </div>
+        </div>
+        
+        <!-- Meditation Image -->
+        <div class="meditation-image-container">
+          <img id="meditation-image" class="meditation-image" src="" alt="Image de méditation quotidienne" loading="lazy">
+          <div class="image-overlay">
+            <p class="image-caption">🙏 Prenez un moment pour méditer</p>
+          </div>
+        </div>
+        
+        <div id="verse-container">
+          <p id="verse-text" class="verse-text"></p>
+          <p id="verse-reference" class="verse-reference"></p>
+          <p id="verse-theme" class="verse-theme"></p>
+        </div>
+        <div class="verse-actions">
+          <button id="new-verse-btn" class="btn" aria-label="Charger un nouveau verset">🔄 Nouveau Verset</button>
+          <button id="browse-verses-btn" class="btn btn-secondary" aria-label="Parcourir tous les versets">📚 Parcourir tous les versets</button>
+        </div>
+        
+        <!-- Related Verses Section -->
+        <div id="related-verses-section" class="related-verses-section">
+          <h3>📚 Versets connexes pour approfondir</h3>
+          <div id="related-verses-list" class="related-verses-list"></div>
+        </div>
+      </section>
+
+      <!-- Bible Browser Modal -->
+      <div id="bible-browser-modal" class="modal" role="dialog" aria-labelledby="bible-browser-title" aria-modal="true">
+        <div class="modal-content bible-browser">
+          <div class="modal-header">
+            <h2 id="bible-browser-title">📖 Bibliothèque de Versets (365 versets)</h2>
+            <button class="close-modal" id="close-browser" aria-label="Fermer la bibliothèque">&times;</button>
+          </div>
+          
+          <div class="browser-filters">
+            <input type="text" id="search-verses" placeholder="🔍 Rechercher par référence, thème ou texte..." aria-label="Rechercher des versets">
+            <select id="filter-theme" aria-label="Filtrer par thème">
+              <option value="">Tous les thèmes</option>
+            </select>
+          </div>
+          
+          <div id="verses-grid" class="verses-grid"></div>
+        </div>
+      </div>
+      
+      <!-- Meditation Questions Section -->
+      <section class="meditation-questions" id="meditation">
+        <h2>🤔 Questions de Méditation</h2>
+        <form id="meditation-form" novalidate>
+          <div class="questions-container">
+            <div class="question-card">
+              <h3>1. Que dit ce passage?</h3>
+              <p class="question-desc">Lisez le verset attentivement. Quels sont les mots clés? Quel est le message principal?</p>
+              <textarea id="answer1" name="answer1" placeholder="Écrivez vos réflexions ici..." required aria-required="true"></textarea>
+            </div>
+            
+            <div class="question-card">
+              <h3>2. Qu'est-ce que cela signifie?</h3>
+              <p class="question-desc">Quel est le contexte? Que voulait dire l'auteur? Comment cela s'applique-t-il à la vie?</p>
+              <textarea id="answer2" name="answer2" placeholder="Écrivez vos réflexions ici..." required aria-required="true"></textarea>
+            </div>
+            
+            <div class="question-card">
+              <h3>3. Comment puis-je l'appliquer?</h3>
+              <p class="question-desc">Que dois-je changer dans ma vie? Quelle action concrète puis-je prendre aujourd'hui?</p>
+              <textarea id="answer3" name="answer3" placeholder="Écrivez vos réflexions ici..." required aria-required="true"></textarea>
+            </div>
+            
+            <div class="question-card">
+              <h3>4. Avec qui puis-je le partager?</h3>
+              <p class="question-desc">Qui a besoin d'entendre ce message? Comment puis-je encourager quelqu'un avec cette vérité?</p>
+              <textarea id="answer4" name="answer4" placeholder="Écrivez vos réflexions ici..." required aria-required="true"></textarea>
+            </div>
+          </div>
+          
+          <div class="submit-section">
+            <button type="submit" class="btn btn-submit">💾 Enregistrer mes réponses</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- History Section -->
+      <section class="history-section" id="history">
+        <h2>📚 Mes Réponses Précédentes</h2>
+        <div id="history-container" class="history-container">
+          <p class="no-history">Aucune réponse enregistrée pour le moment.</p>
+        </div>
+      </section>
+
+      <!-- Community Experiences Section -->
+      <section class="community-section" id="community">
+        <h2>🌟 Expériences de la Communauté</h2>
+        <p class="community-intro">Découvrez comment la Parole de Dieu transforme la vie de nos membres</p>
+        
+        <div class="community-filters">
+          <button class="filter-btn active" data-filter="all">Toutes</button>
+          <button class="filter-btn" data-filter="recent">Récentes</button>
+          <button class="filter-btn" data-filter="popular">Populaires</button>
+        </div>
+        
+        <div id="community-container" class="community-container">
+          <p class="no-community">Aucune expérience partagée pour le moment. Soyez le premier à partager!</p>
+        </div>
+      </section>
+      </div>
+    </div>
+    
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal" role="dialog" aria-labelledby="profile-title" aria-modal="true">
+    <div class="modal-content profile-modal">
+      <div class="modal-header">
+        <h2 id="profile-title">👤 Mon Profil</h2>
+        <button class="close-modal" id="close-profile" aria-label="Fermer le profil">&times;</button>
+      </div>
+      
+      <div id="profile-content" class="profile-content">
+        <!-- Le contenu sera généré dynamiquement -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="verses-data-improved.js" defer></script>
+  <script src="verse-manager.js" defer></script>
+  <script src="countries-data.js" defer></script>
+  <script src="test-user-setup.js" defer></script>
+  <script src="donation-manager.js" defer></script>
+  <script src="app-complete.js" defer></script>
+  
+  <!-- Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('✅ Service Worker enregistré:', registration.scope);
+            
+            // Vérifier les mises à jour
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('🔄 Nouvelle version disponible');
+                  // Afficher notification de mise à jour
+                  if (window.app) {
+                    window.app.showNotification('Nouvelle version disponible ! Rechargez la page.', 'info');
+                  }
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error('❌ Erreur Service Worker:', error);
+          });
+      });
+    }
+
+    // Prompt d'installation PWA
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Afficher bouton d'installation personnalisé
+      console.log('📱 PWA peut être installée');
+      
+      // Créer un bouton d'installation
+      setTimeout(() => {
+        if (window.app && deferredPrompt) {
+          const installBtn = document.createElement('button');
+          installBtn.className = 'btn-install-pwa';
+          installBtn.innerHTML = '📱 Installer l\'application';
+          installBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            animation: pulse 2s infinite;
+          `;
+          
+          installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+              deferredPrompt.prompt();
+              const { outcome } = await deferredPrompt.userChoice;
+              console.log(`Installation: ${outcome}`);
+              deferredPrompt = null;
+              installBtn.remove();
+            }
+          });
+          
+          document.body.appendChild(installBtn);
+        }
+      }, 3000);
+    });
+
+    // Confirmation d'installation
+    window.addEventListener('appinstalled', () => {
+      console.log('✅ PWA installée avec succès');
+      if (window.app) {
+        window.app.showNotification('Application installée avec succès ! 🎉', 'success');
+      }
+    });
+  </script>
+  
+  <style>
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+
+  <!-- Donation Modal JavaScript SIMPLIFIÉ ET FONCTIONNEL -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 Script de donation chargé');
+      
+      // === MENU HAMBURGER ===
+      const landingHamburger = document.getElementById('landing-hamburger');
+      const landingMenu = document.getElementById('landing-menu');
+      
+      if (landingHamburger && landingMenu) {
+        landingHamburger.addEventListener('click', function() {
+          landingMenu.classList.toggle('active');
+          landingHamburger.classList.toggle('active');
+          console.log('Menu toggled');
+        });
+        
+        // Fermer le menu en cliquant à l'extérieur
+        document.addEventListener('click', function(e) {
+          if (!landingHamburger.contains(e.target) && !landingMenu.contains(e.target)) {
+            landingMenu.classList.remove('active');
+            landingHamburger.classList.remove('active');
+          }
+        });
+      }
+      
+      // === NAVIGATION PAGES ===
+      const startBtn = document.getElementById('start-btn');
+      const startBtn2 = document.getElementById('start-btn-2');
+      const backToHomeBtn = document.getElementById('back-to-home');
+      
+      function showPage(pageId) {
+        const pages = ['landing-page', 'auth-page', 'app-page'];
+        pages.forEach(id => {
+          const page = document.getElementById(id);
+          if (page) {
+            page.style.display = id === pageId ? 'block' : 'none';
+          }
+        });
+      }
+      
+      if (startBtn) startBtn.addEventListener('click', () => showPage('auth-page'));
+      if (startBtn2) startBtn2.addEventListener('click', () => showPage('auth-page'));
+      if (backToHomeBtn) backToHomeBtn.addEventListener('click', () => showPage('landing-page'));
+      
+      // === DONATION MODAL ===
+      const donationBtns = [
+        document.getElementById('donation-btn'),
+        document.getElementById('menu-donation-btn'),
+        document.getElementById('nav-donation-btn'),
+        document.getElementById('hero-donation-btn'),
+        document.getElementById('floating-donation-btn')
+      ];
+      
+      const donationModal = document.getElementById('donation-modal');
+      const closeDonation = document.getElementById('close-donation');
+      const prevBtn = document.getElementById('prev-donation');
+      const nextBtn = document.getElementById('next-donation');
+      const indicators = document.querySelectorAll('.indicator');
+      const imageContainers = document.querySelectorAll('.donation-image-container');
+      
+      let currentSlide = 0;
+      const totalSlides = imageContainers.length;
+      
+      console.log('🔍 Éléments trouvés:', {
+        modal: !!donationModal,
+        images: imageContainers.length,
+        buttons: donationBtns.filter(btn => btn).length
+      });
+      
+      // Fonction pour ouvrir le modal
+      function openDonationModal() {
+        console.log('📖 Ouverture du modal de donation');
+        if (donationModal) {
+          donationModal.classList.add('show');
+          document.body.style.overflow = 'hidden';
+          
+          // Fermer le menu hamburger si ouvert
+          if (landingMenu && landingMenu.classList.contains('active')) {
+            landingMenu.classList.remove('active');
+            landingHamburger.classList.remove('active');
+          }
+          
+          // Afficher le premier slide
+          setTimeout(() => showSlide(0), 200);
+        }
+      }
+      
+      // Fonction pour fermer le modal
+      function closeDonationModal() {
+        console.log('❌ Fermeture du modal de donation');
+        if (donationModal) {
+          donationModal.classList.remove('show');
+          document.body.style.overflow = 'auto';
+          currentSlide = 0;
+        }
+      }
+      
+      // Fonction pour afficher un slide
+      function showSlide(index) {
+        console.log('🖼️ Affichage du slide:', index);
+        
+        imageContainers.forEach((container, i) => {
+          container.classList.remove('active', 'prev');
+          if (i < index) {
+            container.classList.add('prev');
+          } else if (i === index) {
+            container.classList.add('active');
+          }
+        });
+        
+        indicators.forEach((indicator, i) => {
+          indicator.classList.toggle('active', i === index);
+        });
+        
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === totalSlides - 1;
+        
+        currentSlide = index;
+      }
+      
+      // Connecter tous les boutons donation
+      donationBtns.forEach((btn, index) => {
+        if (btn) {
+          btn.addEventListener('click', function() {
+            console.log(`🎯 Clic sur bouton donation ${index + 1}`);
+            openDonationModal();
+          });
+        }
+      });
+      
+      // Fermer le modal
+      if (closeDonation) {
+        closeDonation.addEventListener('click', closeDonationModal);
+      }
+      
+      // Fermer en cliquant à l'extérieur
+      if (donationModal) {
+        donationModal.addEventListener('click', function(e) {
+          if (e.target === donationModal) {
+            closeDonationModal();
+          }
+        });
+      }
+      
+      // Fermer avec Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && donationModal && donationModal.classList.contains('show')) {
+          closeDonationModal();
+        }
+      });
+      
+      // Navigation des slides
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+          if (currentSlide > 0) showSlide(currentSlide - 1);
+        });
+      }
+      
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+          if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+        });
+      }
+      
+      // Indicateurs cliquables
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', function() {
+          showSlide(index);
+        });
+      });
+      
+      // Navigation au clavier
+      document.addEventListener('keydown', function(e) {
+        if (!donationModal || !donationModal.classList.contains('show')) return;
+        
+        if (e.key === 'ArrowLeft' && currentSlide > 0) {
+          showSlide(currentSlide - 1);
+        } else if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+          showSlide(currentSlide + 1);
+        }
+      });
+      
+      // Support tactile
+      let startX = 0;
+      
+      if (donationModal) {
+        donationModal.addEventListener('touchstart', function(e) {
+          startX = e.touches[0].clientX;
+        });
+        
+        donationModal.addEventListener('touchend', function(e) {
+          const endX = e.changedTouches[0].clientX;
+          const diff = startX - endX;
+          
+          if (Math.abs(diff) > 50) {
+            if (diff > 0 && currentSlide < totalSlides - 1) {
+              showSlide(currentSlide + 1);
+            } else if (diff < 0 && currentSlide > 0) {
+              showSlide(currentSlide - 1);
+            }
+          }
+        });
+      }
+      
+      console.log('✅ Script de donation initialisé avec succès');
+    });
+  </script>
+</body>
+</html>

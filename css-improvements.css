@@ -1,0 +1,586 @@
+/* ============================================
+   YOUNGLIFE DRC - CSS Improvements
+   Variables CSS modernes et optimisations
+   ============================================ */
+
+/* === CSS CUSTOM PROPERTIES (Variables) === */
+:root {
+  /* Colors */
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-light: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  
+  /* Spacing */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 20px;
+  --spacing-lg: 30px;
+  --spacing-xl: 40px;
+  
+  /* Typography */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 15px;
+  --radius-xl: 25px;
+  --radius-full: 50px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 25px 70px rgba(0, 0, 0, 0.3);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Z-index */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 1000;
+  --z-modal: 1001;
+  --z-notification: 10000;
+}
+
+/* === ACCESSIBILITY IMPROVEMENTS === */
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) 0;
+  z-index: var(--z-notification);
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--warning-color);
+  outline-offset: 2px;
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* === PERFORMANCE IMPROVEMENTS === */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* GPU acceleration for animations */
+.animate-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --card-bg: #2a2a2a;
+  }
+  
+  /* Uncomment to enable dark mode */
+  /* body {
+    background: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  .container,
+  .auth-content,
+  .modal-content {
+    background: var(--card-bg);
+    color: var(--text-color);
+  } */
+}
+
+/* === PRINT IMPROVEMENTS === */
+@media print {
+  /* Hide non-essential elements */
+  .navbar,
+  .hamburger,
+  .landing-hamburger-container,
+  .btn,
+  .notification,
+  .modal,
+  footer {
+    display: none !important;
+  }
+  
+  /* Optimize for print */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .container {
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  /* Page breaks */
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+  
+  .question-card,
+  .history-item {
+    page-break-inside: avoid;
+  }
+  
+  /* Show URLs for links */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+}
+
+/* === UTILITY CLASSES === */
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Visually hidden but accessible */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* === FOOTER IMPROVEMENTS === */
+.footer-links {
+  margin-top: 15px;
+  font-size: 0.95em;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color var(--transition-base);
+  padding: 0 10px;
+}
+
+.footer-links a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* === LOADING STATES === */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* === SMOOTH SCROLLING === */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll padding for fixed header */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* === IMPROVED FORM VALIDATION === */
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown) {
+  border-color: var(--error-color);
+  background-color: #fff5f5;
+}
+
+input:valid:not(:placeholder-shown),
+textarea:valid:not(:placeholder-shown),
+select:valid:not(:placeholder-shown) {
+  border-color: var(--success-color);
+  background-color: #f0fff4;
+}
+
+/* === RESPONSIVE IMAGES === */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* === BETTER TOUCH TARGETS === */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets on mobile */
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* === PERFORMANCE HINTS === */
+.lazy-load {
+  content-visibility: auto;
+  contain-intrinsic-size: 500px;
+}
+
+/* === END OF IMPROVEMENTS === */
+
+
+/* ============================================
+   VERSETS DE SOUBASSEMENT - Styles Améliorés
+   ============================================ */
+
+.related-verse-item {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: all 0.3s ease;
+  border-left: 3px solid #667eea;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.related-verse-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+}
+
+.related-verse-icon {
+  font-size: 1.5em;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.related-verse-content {
+  flex: 1;
+}
+
+.related-verse-ref {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 1em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.related-verse-text {
+  color: #555;
+  font-size: 0.95em;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Animation pour les versets de soubassement */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.related-verse-item {
+  animation: slideInFromLeft 0.5s ease forwards;
+}
+
+/* Amélioration de la section des versets connexes */
+.related-verses-section {
+  margin-top: 30px;
+  padding: 25px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #667eea;
+}
+
+.related-verses-section h3 {
+  color: #764ba2;
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.related-verses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Amélioration du navigateur de versets */
+.verse-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.verse-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  border-left-width: 6px;
+}
+
+.verse-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.verse-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: bold;
+}
+
+.verse-card-theme {
+  color: #764ba2;
+  font-size: 0.9em;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.verse-card-ref {
+  color: #667eea;
+  font-weight: bold;
+  font-size: 1.05em;
+  margin-bottom: 10px;
+}
+
+.verse-card-text {
+  color: #555;
+  line-height: 1.6;
+  margin: 12px 0;
+  font-size: 0.95em;
+  flex: 1;
+}
+
+.btn-select-verse {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.btn-select-verse:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Amélioration de l'image de méditation */
+.meditation-image-container {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 20px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.meditation-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+.meditation-image:hover {
+  transform: scale(1.02);
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 25px;
+  color: white;
+}
+
+.image-caption {
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive pour les versets de soubassement */
+@media (max-width: 768px) {
+  .related-verse-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .related-verse-icon {
+    font-size: 1.2em;
+  }
+  
+  .meditation-image-container {
+    height: 300px;
+  }
+  
+  .related-verses-section {
+    padding: 15px;
+  }
+}
+
+/* Animation de chargement pour les images */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.meditation-image.loading {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Amélioration du compteur de versets */
+.verse-counter {
+  text-align: right;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.verse-counter span {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #764ba2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.verse-info {
+  font-size: 0.9em;
+  color: #667eea;
+  margin-top: 8px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Effet de pulsation pour le nouveau verset */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.verse-text.new-verse {
+  animation: pulse 0.5s ease;
+}
+
+/* === FIN DES AMÉLIORATIONS === */
