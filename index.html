@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Grand Lac Express">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMzQjgyRjYiLz4KPHN2ZyB4PSI0OCIgeT0iNDgiIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xOCA3SDZjLTEuMSAwLTIgLjktMiAydjZjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlY5YzAtMS4xLS45LTItMi0yem0tMSA3SDdjLS41NSAwLTEtLjQ1LTEtMXMuNDUtMSAxLTFoMTBjLjU1IDAgMSAuNDUgMSAxcy0uNDUgMS0xIDF6bTAtM0g3Yy0uNTUgMC0xLS40NS0xLTFzLjQ1LTEgMS0xaDEwYy41NSAwIDEgLjQ1IDEgMXMtLjQ1IDEtMSAxeiIvPgo8L3N2Zz4KPC9zdmc+">
+    <title>Grand Lac Express | Cloud Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Script de débogage -->
+    <script>
+        console.log('=== DÉBOGAGE ACTIVÉ ===');
+        window.addEventListener('load', function() {
+            console.log('Page complètement chargée');
+            
+            // Vérifier les boutons après chargement
+            setTimeout(function() {
+                console.log('=== VÉRIFICATION POST-CHARGEMENT ===');
+                
+                const buttons = [
+                    'auth-btn',
+                    'client-type-btn',
+                    'agency-type-btn'
+                ];
+                
+                buttons.forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) {
+                        console.log(`✅ ${id} trouvé`);
+                        
+                        // Ajouter un gestionnaire de test
+                        btn.addEventListener('click', function(e) {
+                            console.log(`🖱️ CLIC DÉTECTÉ sur ${id}`);
+                        });
+                    } else {
+                        console.log(`❌ ${id} NON TROUVÉ`);
+                    }
+                });
+            }, 2000);
+        });
+    </script>
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .hidden-section { display: none !important; }
+        .bg-hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+        }
+        .glass { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+        .timer-badge { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Account type buttons */
+        .account-type-btn {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .account-type-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .account-type-btn.active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .mobile-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 1rem; }
+            .mobile-nav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center; }
+            .mobile-nav-btn { padding: 0.75rem 0.5rem; border-radius: 0.75rem; font-size: 0.75rem; font-weight: 600; transition: all 0.2s; }
+            .mobile-nav-btn.active { background: rgba(59, 130, 246, 0.2); color: #3B82F6; }
+            .mobile-nav-btn:hover { background: rgba(255, 255, 255, 0.05); }
+            .mobile-content { padding-bottom: 6rem; }
+            .mobile-hero { min-height: 70vh; padding: 2rem 1rem; }
+            .mobile-form { padding: 2rem 1.5rem; }
+        }
+        
+        /* Install prompt */
+        .install-prompt { position: fixed; bottom: 6rem; left: 1rem; right: 1rem; background: linear-gradient(135deg, #3B82F6, #1D4ED8); padding: 1rem; border-radius: 1rem; color: white; font-weight: 600; text-align: center; z-index: 40; transform: translateY(100%); transition: transform 0.3s ease; }
+        .install-prompt.show { transform: translateY(0); }
+        .install-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); padding: 0.5rem 1rem; border-radius: 0.5rem; margin: 0 0.25rem; font-size: 0.875rem; }
+    </style>
+</head>
+<body class="bg-[#0F172A] text-slate-100">
+
+    <!-- NAVIGATION DESKTOP -->
+    <nav class="fixed w-full z-50 bg-[#0F172A]/90 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center hidden md:flex">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+            <div class="bg-blue-600 p-2 rounded-lg"><i class="fas fa-bus-alt text-xl"></i></div>
+            <span class="text-xl font-bold tracking-tight uppercase">Grand Lac <span class="text-blue-500">Express</span></span>
+        </div>
+        
+        <div class="hidden lg:flex space-x-8 text-sm font-medium">
+            <button onclick="navigateTo('home')" class="hover:text-blue-500 transition">Accueil</button>
+            <button onclick="navigateTo('client-portal')" class="hover:text-blue-500 transition">Passagers</button>
+            <button onclick="navigateTo('agency-portal')" class="hover:text-blue-500 transition">Agences</button>
+            <button onclick="showInstallPrompt()" class="hover:text-blue-500 transition font-bold text-blue-400">Application</button>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <div id="auth-status" class="text-[10px] font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-white/10 italic">Connexion...</div>
+            <button id="auth-btn" onclick="navigateTo('auth')" class="btn-primary text-white px-6 py-2 rounded-full text-xs font-bold">CONNEXION</button>
+        </div>
+    </nav>
+
+    <!-- NAVIGATION MOBILE -->
+    <div class="mobile-nav md:hidden">
+        <div class="mobile-nav-grid">
+            <button onclick="navigateTo('home')" class="mobile-nav-btn" id="nav-home">
+                <i class="fas fa-home block mb-1"></i>
+                Accueil
+            </button>
+            <button onclick="navigateTo('client-portal')" class="mobile-nav-btn" id="nav-client">
+                <i class="fas fa-ticket-alt block mb-1"></i>
+                Réserver
+            </button>
+            <button onclick="navigateTo('agency-portal')" class="mobile-nav-btn" id="nav-agency">
+                <i class="fas fa-building block mb-1"></i>
+                Agence
+            </button>
+            <button onclick="navigateTo('auth')" class="mobile-nav-btn" id="nav-auth">
+                <i class="fas fa-user block mb-1"></i>
+                Compte
+            </button>
+        </div>
+    </div>
+
+    <!-- INSTALL PROMPT -->
+    <div id="install-prompt" class="install-prompt">
+        <div class="mb-2">📱 Installer l'application</div>
+        <div class="text-sm opacity-90 mb-3">Accès rapide depuis votre écran d'accueil</div>
+        <button onclick="installApp()" class="install-btn">Installer</button>
+        <button onclick="hideInstallPrompt()" class="install-btn">Plus tard</button>
+    </div>
+
+    <main class="pt-20 md:pt-20 mobile-content">
+        <!-- ACCUEIL -->
+        <section id="home" class="fade-in">
+            <div class="bg-hero min-h-[80vh] md:min-h-[80vh] mobile-hero flex flex-col justify-center items-center text-center px-6">
+                <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight">Transport <span class="text-blue-500">Connecté</span></h1>
+                <p class="max-w-2xl text-slate-400 text-base md:text-lg mb-10">Goma vers Kigali, Kampala, Beni, Butembo, Bunia, Durba, Bujumbura, Dar es Salaam. Base de données synchronisée en temps réel.</p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                    <button onclick="navigateTo('client-portal')" class="btn-primary text-white px-8 py-4 rounded-xl font-bold">Réserver un bus</button>
+                    <button onclick="navigateTo('agency-portal')" class="btn-secondary px-8 py-4 rounded-xl font-bold text-white">Espace Agence</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUTH / CHOIX COMPTE -->
+        <section id="auth" class="hidden-section fade-in min-h-[80vh] flex items-center justify-center px-6">
+            <div class="w-full max-w-lg glass p-8 md:p-10 rounded-[2.5rem] mobile-form">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Créer un Compte</h2>
+                
+                <!-- Mode Selection -->
+                <div class="flex bg-white/5 p-1 rounded-2xl mb-8 border border-white/10">
+                    <button id="btn-demo" onclick="setMode('demo')" class="flex-1 py-3 rounded-xl font-bold text-sm bg-yellow-500/20 text-yellow-500 border border-yellow-500/40">DEMO</button>
+                    <button id="btn-real" onclick="setMode('real')" class="flex-1 py-3 rounded-xl font-bold text-sm text-slate-400 hover:text-white transition">RÉEL</button>
+                </div>
+                
+                <!-- Account Type Selection -->
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-slate-300 mb-3">Type de compte</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <button id="client-type-btn" onclick="selectAccountType('client')" class="account-type-btn active p-4 rounded-xl border-2 border-blue-500/40 bg-blue-500/20 text-blue-400 font-bold text-sm transition-all">
+                            <i class="fas fa-user-circle block mb-2 text-2xl"></i>
+                            PASSAGER
+                            <div class="text-xs opacity-75 mt-1">Réserver des trajets</div>
+                        </button>
+                        <button id="agency-type-btn" onclick="selectAccountType('agency')" class="account-type-btn p-4 rounded-xl border-2 border-white/10 bg-white/5 text-slate-400 font-bold text-sm transition-all hover:border-purple-500/40 hover:bg-purple-500/20 hover:text-purple-400">
+                            <i class="fas fa-building block mb-2 text-2xl"></i>
+                            AGENCE
+                            <div class="text-xs opacity-75 mt-1">Gérer des bus</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Form Fields -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-300 mb-2">Nom complet *</label>
+                        <input type="text" id="user-name" placeholder="Entrez votre nom complet" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-base">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-bold text-slate-300 mb-2">Téléphone *</label>
+                        <input type="tel" id="user-phone" placeholder="+243/+250/+257/+256/+255 XXX XXX XXX" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-base">
+                    </div>
+                    
+                    <div id="agency-fields" class="hidden space-y-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-300 mb-2">Nom de l'agence *</label>
+                            <input type="text" id="agency-name" placeholder="Nom de votre agence de transport" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-base">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold text-slate-300 mb-2">Ville d'opération</label>
+                            <select id="agency-city" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-slate-100 text-base">
+                                <option value="">Sélectionner une ville</option>
+                                
+                                <!-- RDC (République Démocratique du Congo) -->
+                                <optgroup label="🇨🇩 RDC">
+                                    <option value="Goma">Goma</option>
+                                    <option value="Bukavu">Bukavu</option>
+                                    <option value="Beni">Beni</option>
+                                    <option value="Butembo">Butembo</option>
+                                    <option value="Bunia">Bunia</option>
+                                    <option value="Uvira">Uvira</option>
+                                    <option value="Kinshasa">Kinshasa</option>
+                                    <option value="Lubumbashi">Lubumbashi</option>
+                                    <option value="Mbuji-Mayi">Mbuji-Mayi</option>
+                                    <option value="Kisangani">Kisangani</option>
+                                    <option value="Kananga">Kananga</option>
+                                    <option value="Kolwezi">Kolwezi</option>
+                                    <option value="Likasi">Likasi</option>
+                                    <option value="Matadi">Matadi</option>
+                                    <option value="Mbandaka">Mbandaka</option>
+                                </optgroup>
+                                
+                                <!-- Rwanda -->
+                                <optgroup label="🇷🇼 Rwanda">
+                                    <option value="Kigali">Kigali</option>
+                                    <option value="Butare">Butare (Huye)</option>
+                                    <option value="Gitarama">Gitarama (Muhanga)</option>
+                                    <option value="Ruhengeri">Ruhengeri (Musanze)</option>
+                                    <option value="Gisenyi">Gisenyi (Rubavu)</option>
+                                    <option value="Cyangugu">Cyangugu (Rusizi)</option>
+                                    <option value="Kibungo">Kibungo (Ngoma)</option>
+                                    <option value="Byumba">Byumba (Gicumbi)</option>
+                                </optgroup>
+                                
+                                <!-- Burundi -->
+                                <optgroup label="🇧🇮 Burundi">
+                                    <option value="Bujumbura">Bujumbura</option>
+                                    <option value="Gitega">Gitega</option>
+                                    <option value="Muyinga">Muyinga</option>
+                                    <option value="Ngozi">Ngozi</option>
+                                    <option value="Ruyigi">Ruyigi</option>
+                                    <option value="Kayanza">Kayanza</option>
+                                    <option value="Muramvya">Muramvya</option>
+                                    <option value="Bururi">Bururi</option>
+                                    <option value="Rutana">Rutana</option>
+                                    <option value="Makamba">Makamba</option>
+                                </optgroup>
+                                
+                                <!-- Uganda -->
+                                <optgroup label="🇺🇬 Uganda">
+                                    <option value="Kampala">Kampala</option>
+                                    <option value="Entebbe">Entebbe</option>
+                                    <option value="Jinja">Jinja</option>
+                                    <option value="Mbale">Mbale</option>
+                                    <option value="Gulu">Gulu</option>
+                                    <option value="Lira">Lira</option>
+                                    <option value="Mbarara">Mbarara</option>
+                                    <option value="Kasese">Kasese</option>
+                                    <option value="Kabale">Kabale</option>
+                                    <option value="Arua">Arua</option>
+                                    <option value="Masaka">Masaka</option>
+                                    <option value="Soroti">Soroti</option>
+                                    <option value="Hoima">Hoima</option>
+                                    <option value="Kitgum">Kitgum</option>
+                                </optgroup>
+                                
+                                <!-- Tanzanie -->
+                                <optgroup label="🇹🇿 Tanzanie">
+                                    <option value="Dar es Salaam">Dar es Salaam</option>
+                                    <option value="Dodoma">Dodoma</option>
+                                    <option value="Mwanza">Mwanza</option>
+                                    <option value="Arusha">Arusha</option>
+                                    <option value="Mbeya">Mbeya</option>
+                                    <option value="Morogoro">Morogoro</option>
+                                    <option value="Tanga">Tanga</option>
+                                    <option value="Tabora">Tabora</option>
+                                    <option value="Kigoma">Kigoma</option>
+                                    <option value="Moshi">Moshi</option>
+                                    <option value="Musoma">Musoma</option>
+                                    <option value="Iringa">Iringa</option>
+                                    <option value="Singida">Singida</option>
+                                    <option value="Bukoba">Bukoba</option>
+                                </optgroup>
+                                
+                                <option value="Autre">Autre ville</option>
+                            </select>
+                        </div>
+                        
+                        <div class="bg-yellow-500/20 p-4 rounded-xl border border-yellow-500/40">
+                            <div class="flex items-center text-yellow-400 mb-2">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <span class="font-bold">Abonnement Agence</span>
+                            </div>
+                            <div class="text-sm text-yellow-300">
+                                Les comptes agence nécessitent un abonnement de 10$/mois après la période d'essai de 7 jours.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-2 mt-6">
+                        <input type="checkbox" id="terms-checkbox" class="w-4 h-4 text-blue-600 bg-white/5 border-white/10 rounded focus:ring-blue-500">
+                        <label for="terms-checkbox" class="text-sm text-slate-300">
+                            J'accepte les <button onclick="showTerms()" class="text-blue-400 underline">conditions d'utilisation</button>
+                        </label>
+                    </div>
+                    
+                    <button onclick="handleAccountCreation()" class="w-full btn-primary text-white py-4 rounded-xl font-black mt-6 uppercase tracking-widest">
+                        <span id="create-btn-text">Créer le Compte</span>
+                    </button>
+                    
+                    <div class="text-center mt-4">
+                        <button onclick="showLoginForm()" class="text-sm text-slate-400 hover:text-blue-400 transition">
+                            Déjà un compte ? Se connecter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- LOGIN FORM (Hidden by default) -->
+        <section id="login-form" class="hidden-section fade-in min-h-[80vh] flex items-center justify-center px-6">
+            <div class="w-full max-w-lg glass p-8 md:p-10 rounded-[2.5rem] mobile-form">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Se Connecter</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-300 mb-2">Téléphone</label>
+                        <input type="tel" id="login-phone" placeholder="+243/+250/+257/+256/+255 XXX XXX XXX" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl outline-none focus:border-blue-500 text-base">
+                    </div>
+                    
+                    <button onclick="handleLogin()" class="w-full btn-primary text-white py-4 rounded-xl font-black mt-6 uppercase tracking-widest">
+                        Se Connecter
+                    </button>
+                    
+                    <div class="text-center mt-4">
+                        <button onclick="showCreateForm()" class="text-sm text-slate-400 hover:text-blue-400 transition">
+                            Pas de compte ? Créer un compte
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- TERMS MODAL -->
+        <div id="terms-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="glass p-8 rounded-[2rem] max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+                <h3 class="text-2xl font-bold mb-6">Conditions d'Utilisation</h3>
+                
+                <div class="space-y-4 text-sm text-slate-300">
+                    <div>
+                        <h4 class="font-bold text-blue-400 mb-2">1. Acceptation des Conditions</h4>
+                        <p>En utilisant Grand Lac Express, vous acceptez ces conditions d'utilisation.</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-blue-400 mb-2">2. Services Proposés</h4>
+                        <p>Grand Lac Express est une plateforme de réservation de transport connectée en temps réel.</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-blue-400 mb-2">3. Comptes Utilisateurs</h4>
+                        <p>• Les comptes passagers sont gratuits<br>
+                        • Les comptes agences nécessitent un abonnement de 10$/mois après 7 jours d'essai<br>
+                        • Vous êtes responsable de la sécurité de votre compte</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-blue-400 mb-2">4. Paiements et Remboursements</h4>
+                        <p>• Les paiements se font via Mobile Money<br>
+                        • Les réservations non payées dans les 2 heures sont annulées<br>
+                        • Les remboursements sont traités selon nos politiques</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-blue-400 mb-2">5. Contact</h4>
+                        <p>Support: kennedymarcellin@gmail.com | +243 973 664 102</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-3 mt-6">
+                    <button onclick="closeTermsModal()" class="flex-1 bg-slate-700 text-white py-3 rounded-xl font-bold">Fermer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ESPACE AGENCE -->
+        <section id="agency-portal" class="hidden-section fade-in px-6 py-12 max-w-7xl mx-auto">
+            <!-- STATUT ABONNEMENT -->
+            <div id="subscription-banner" class="glass p-6 rounded-2xl mb-8 border-l-4 border-yellow-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-bold text-yellow-400">Abonnement Agence - 10$/mois</h3>
+                        <p class="text-sm text-yellow-300" id="subscription-status">Statut: Version d'essai (7 jours restants)</p>
+                    </div>
+                    <button onclick="openSubscriptionModal()" class="btn-primary text-white px-6 py-3 rounded-xl font-bold">S'abonner</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-1 glass p-8 rounded-3xl text-center">
+                    <div class="w-20 h-20 bg-blue-600 mx-auto rounded-full flex items-center justify-center text-3xl mb-4"><i class="fas fa-building"></i></div>
+                    <h3 id="agency-display-name" class="font-bold text-xl uppercase">Agence Cloud</h3>
+                    <p class="text-[10px] text-blue-400 mt-2 font-bold uppercase tracking-widest">Connecté au Backend</p>
+                    <div class="mt-4 text-sm">
+                        <div class="text-slate-400">Bus enregistrés:</div>
+                        <div class="text-2xl font-bold text-blue-400" id="bus-count">0</div>
+                    </div>
+                </div>
+                <div class="lg:col-span-3 space-y-8">
+                    <div class="glass p-10 rounded-[2.5rem]">
+                        <h3 class="text-2xl font-bold mb-6">Mettre à jour l'Agence</h3>
+                        <div class="space-y-4">
+                            <input type="text" id="edit-agency-name" placeholder="Nouveau nom" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                            <button onclick="updateAgencyData()" class="btn-primary text-white px-10 py-4 rounded-xl font-bold">Enregistrer dans la base de données</button>
+                        </div>
+                    </div>
+                    
+                    <!-- GESTION DES BUS -->
+                    <div class="glass p-10 rounded-[2.5rem]">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold">Mes Bus</h3>
+                            <button onclick="openAddBusModal()" class="btn-primary text-white px-6 py-3 rounded-xl font-bold">
+                                <i class="fas fa-plus mr-2"></i>Ajouter un Bus
+                            </button>
+                        </div>
+                        <div id="bus-list" class="space-y-4">
+                            <div class="text-center text-slate-500 py-8">Aucun bus enregistré</div>
+                        </div>
+                    </div>
+                    
+                    <!-- TABLEAU DE BORD RÉSERVATIONS -->
+                    <div class="glass p-10 rounded-[2.5rem]">
+                        <h3 class="text-2xl font-bold mb-6">Tableau de Bord - Réservations</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-green-500/20 p-4 rounded-xl border border-green-500/40">
+                                <div class="text-2xl font-bold text-green-400" id="paid-count">0</div>
+                                <div class="text-sm text-green-300">Payées</div>
+                            </div>
+                            <div class="bg-yellow-500/20 p-4 rounded-xl border border-yellow-500/40">
+                                <div class="text-2xl font-bold text-yellow-400" id="pending-count">0</div>
+                                <div class="text-sm text-yellow-300">En attente</div>
+                            </div>
+                            <div class="bg-red-500/20 p-4 rounded-xl border border-red-500/40">
+                                <div class="text-2xl font-bold text-red-400" id="expired-count">0</div>
+                                <div class="text-sm text-red-300">Expirées</div>
+                            </div>
+                        </div>
+                        <div id="reservations-list" class="space-y-3">
+                            <div class="text-center text-slate-500 py-8">Aucune réservation pour le moment</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTAIL CLIENT -->
+        <section id="client-portal" class="hidden-section fade-in px-6 py-12 max-w-7xl mx-auto">
+            <div class="glass p-10 rounded-[2.5rem] mb-8">
+                <h2 class="text-3xl font-black mb-8 italic">Où allez-vous aujourd'hui ?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <select id="search-dest" class="w-full bg-slate-800 p-4 rounded-xl outline-none border border-white/10">
+                        <option value="">Choisir une destination</option>
+                        
+                        <!-- RDC (République Démocratique du Congo) -->
+                        <optgroup label="🇨🇩 RDC">
+                            <option value="Goma (RDC)">Goma</option>
+                            <option value="Bukavu (RDC)">Bukavu</option>
+                            <option value="Beni (RDC)">Beni</option>
+                            <option value="Butembo (RDC)">Butembo</option>
+                            <option value="Bunia (RDC)">Bunia</option>
+                            <option value="Uvira (RDC)">Uvira</option>
+                            <option value="Kinshasa (RDC)">Kinshasa</option>
+                            <option value="Lubumbashi (RDC)">Lubumbashi</option>
+                        </optgroup>
+                        
+                        <!-- Rwanda -->
+                        <optgroup label="🇷🇼 Rwanda">
+                            <option value="Kigali (RW)">Kigali</option>
+                            <option value="Butare (RW)">Butare (Huye)</option>
+                            <option value="Gisenyi (RW)">Gisenyi (Rubavu)</option>
+                            <option value="Ruhengeri (RW)">Ruhengeri (Musanze)</option>
+                        </optgroup>
+                        
+                        <!-- Burundi -->
+                        <optgroup label="🇧🇮 Burundi">
+                            <option value="Bujumbura (BI)">Bujumbura</option>
+                            <option value="Gitega (BI)">Gitega</option>
+                            <option value="Ngozi (BI)">Ngozi</option>
+                        </optgroup>
+                        
+                        <!-- Uganda -->
+                        <optgroup label="🇺🇬 Uganda">
+                            <option value="Kampala (UG)">Kampala</option>
+                            <option value="Entebbe (UG)">Entebbe</option>
+                            <option value="Jinja (UG)">Jinja</option>
+                            <option value="Mbale (UG)">Mbale</option>
+                            <option value="Kasese (UG)">Kasese</option>
+                        </optgroup>
+                        
+                        <!-- Tanzanie -->
+                        <optgroup label="🇹🇿 Tanzanie">
+                            <option value="Dar es Salaam (TZ)">Dar es Salaam</option>
+                            <option value="Arusha (TZ)">Arusha</option>
+                            <option value="Mwanza (TZ)">Mwanza</option>
+                            <option value="Kigoma (TZ)">Kigoma</option>
+                            <option value="Bukoba (TZ)">Bukoba</option>
+                        </optgroup>
+                    </select>
+                    <input type="date" class="w-full bg-slate-800 p-4 rounded-xl border border-white/10">
+                    <button onclick="searchTrajets()" class="btn-primary text-white p-4 rounded-xl font-black uppercase">Chercher</button>
+                </div>
+            </div>
+            <div id="results-area" class="space-y-4"></div>
+            
+            <!-- MODAL RÉSERVATION -->
+            <div id="reservation-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+                <div class="glass p-8 rounded-[2rem] max-w-md w-full">
+                    <h3 class="text-2xl font-bold mb-6">Finaliser la Réservation</h3>
+                    <div id="reservation-details" class="mb-6"></div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <input type="text" id="passenger-name" placeholder="Nom complet du passager" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                        <input type="tel" id="passenger-phone" placeholder="Téléphone (+243/+250/+257/+256/+255...)" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                        <select id="seat-selection" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                            <option value="">Choisir une place</option>
+                        </select>
+                    </div>
+                    
+                    <div class="bg-yellow-500/20 p-4 rounded-xl border border-yellow-500/40 mb-6">
+                        <div class="flex items-center text-yellow-400 mb-2">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span class="font-bold">Attention: 2 heures pour payer</span>
+                        </div>
+                        <div class="text-sm text-yellow-300">Après réservation, vous avez exactement 2 heures pour effectuer le paiement, sinon la réservation sera automatiquement annulée.</div>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button onclick="closeReservationModal()" class="flex-1 bg-slate-700 text-white py-3 rounded-xl font-bold">Annuler</button>
+                        <button onclick="confirmReservation()" class="flex-1 btn-primary text-white py-3 rounded-xl font-bold">Réserver</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MODAL PAIEMENT -->
+            <div id="payment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+                <div class="glass p-8 rounded-[2rem] max-w-md w-full">
+                    <h3 class="text-2xl font-bold mb-6">Paiement Requis</h3>
+                    <div id="payment-timer" class="bg-red-500/20 p-4 rounded-xl border border-red-500/40 mb-6 text-center">
+                        <div class="text-red-400 font-bold text-lg" id="countdown-display">01:59:59</div>
+                        <div class="text-sm text-red-300">Temps restant pour payer</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-blue-500/20 p-4 rounded-xl border border-blue-500/40">
+                            <h4 class="font-bold text-blue-400 mb-2">Coordonnées de l'Agence</h4>
+                            <div class="text-sm space-y-1">
+                                <div>Mobile Money: +243 973 664 102</div>
+                                <div>Airtel Money: +243 973 664 102</div>
+                                <div>Orange Money: +243 973 664 102</div>
+                            </div>
+                        </div>
+                        
+                        <input type="text" id="payment-reference" placeholder="Référence de paiement (ex: MP240101.1234.A12345)" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button onclick="closePaymentModal()" class="flex-1 bg-slate-700 text-white py-3 rounded-xl font-bold">Fermer</button>
+                        <button onclick="confirmPayment()" class="flex-1 btn-primary text-white py-3 rounded-xl font-bold">Confirmer Paiement</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL ABONNEMENT -->
+    <div id="subscription-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass p-8 rounded-[2rem] max-w-md w-full">
+            <h3 class="text-2xl font-bold mb-6">Abonnement Agence</h3>
+            
+            <div class="bg-blue-500/20 p-6 rounded-xl border border-blue-500/40 mb-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-400 mb-2">10$ / mois</div>
+                    <div class="text-sm text-blue-300">Accès complet à la plateforme</div>
+                </div>
+                <div class="mt-4 space-y-2 text-sm">
+                    <div class="flex items-center text-green-400">
+                        <i class="fas fa-check mr-2"></i>Gestion illimitée des bus
+                    </div>
+                    <div class="flex items-center text-green-400">
+                        <i class="fas fa-check mr-2"></i>Téléchargement de photos
+                    </div>
+                    <div class="flex items-center text-green-400">
+                        <i class="fas fa-check mr-2"></i>Tableau de bord avancé
+                    </div>
+                    <div class="flex items-center text-green-400">
+                        <i class="fas fa-check mr-2"></i>Support prioritaire
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <div class="bg-yellow-500/20 p-4 rounded-xl border border-yellow-500/40">
+                    <h4 class="font-bold text-yellow-400 mb-2">Paiement Mobile Money</h4>
+                    <div class="text-sm space-y-1">
+                        <div>Mobile Money: +243 973 664 102</div>
+                        <div>Airtel Money: +243 973 664 102</div>
+                        <div>Orange Money: +243 973 664 102</div>
+                    </div>
+                </div>
+                
+                <input type="text" id="subscription-reference" placeholder="Référence de paiement" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+            </div>
+            
+            <div class="flex gap-3">
+                <button onclick="closeSubscriptionModal()" class="flex-1 bg-slate-700 text-white py-3 rounded-xl font-bold">Annuler</button>
+                <button onclick="confirmSubscription()" class="flex-1 btn-primary text-white py-3 rounded-xl font-bold">Confirmer</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL AJOUTER BUS -->
+    <div id="add-bus-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass p-8 rounded-[2rem] max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <h3 class="text-2xl font-bold mb-6">Ajouter un Nouveau Bus</h3>
+            
+            <div class="space-y-4 mb-6">
+                <input type="text" id="bus-name" placeholder="Nom du bus (ex: Volcano Express 01)" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                
+                <select id="bus-model" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                    <option value="">Sélectionner le modèle</option>
+                    <option value="Mercedes Sprinter">Mercedes Sprinter</option>
+                    <option value="Toyota Hiace">Toyota Hiace</option>
+                    <option value="Nissan Urvan">Nissan Urvan</option>
+                    <option value="Iveco Daily">Iveco Daily</option>
+                    <option value="Ford Transit">Ford Transit</option>
+                    <option value="Hyundai H350">Hyundai H350</option>
+                    <option value="Autre">Autre (préciser)</option>
+                </select>
+                
+                <input type="text" id="bus-model-custom" placeholder="Préciser le modèle" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 hidden">
+                
+                <input type="number" id="bus-capacity" placeholder="Nombre de places" min="1" max="50" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                
+                <input type="text" id="bus-plate" placeholder="Plaque d'immatriculation" class="w-full bg-white/5 p-4 rounded-xl border border-white/10">
+                
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-300">Photo du bus</label>
+                    <input type="file" id="bus-photo" accept="image/*" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-500 file:text-white file:font-bold">
+                    <div id="photo-preview" class="hidden mt-4">
+                        <img id="preview-image" class="w-full h-48 object-cover rounded-xl" alt="Aperçu">
+                    </div>
+                </div>
+                
+                <textarea id="bus-description" placeholder="Description du bus (équipements, état, etc.)" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 h-24 resize-none"></textarea>
+            </div>
+            
+            <div class="flex gap-3">
+                <button onclick="closeAddBusModal()" class="flex-1 bg-slate-700 text-white py-3 rounded-xl font-bold">Annuler</button>
+                <button onclick="saveBus()" class="flex-1 btn-primary text-white py-3 rounded-xl font-bold">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-24 border-t border-white/5 bg-[#0A0F1D] px-6 py-12 text-center md:text-left">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <h4 class="font-bold mb-4 uppercase text-blue-500">Grand Lac Express</h4>
+                <p class="text-slate-500 text-sm">Le premier réseau de transport synchronisé en temps réel.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 uppercase">Contact Support</h4>
+                <p class="text-slate-400 text-sm">kennedymarcellin@gmail.com</p>
+                <p class="text-slate-400 text-sm">+243 973 664 102</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 uppercase">Application</h4>
+                <p class="text-slate-400 text-sm">Ouvrez ce lien sur votre mobile pour installer.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FIREBASE SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "demo-key",
+            authDomain: "grand-lac-express.firebaseapp.com",
+            projectId: "grand-lac-express",
+            storageBucket: "grand-lac-express.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:demo"
+        };
+        
+        let app, auth, db;
+        let isFirebaseEnabled = false;
+        const appId = 'grand-lac-express';
+        
+        // Try to initialize Firebase, fallback to local mode if it fails
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            isFirebaseEnabled = true;
+        } catch (error) {
+            console.log('Mode local activé - Firebase non disponible');
+            isFirebaseEnabled = false;
+        }
+
+        let currentUser = null;
+        let selectedMode = 'demo';
+        let selectedAccountType = 'client';
+
+        // AUTH INITIALIZATION
+        async function initAuth() {
+            if (!isFirebaseEnabled) {
+                // Mode local - simulation d'un utilisateur connecté
+                currentUser = { uid: 'local-user-' + Date.now() };
+                document.getElementById('auth-status').innerText = 'MODE LOCAL ACTIF';
+                return;
+            }
+            
+            try {
+                await signInAnonymously(auth);
+            } catch (e) { 
+                console.error('Erreur Firebase:', e);
+                // Fallback en mode local
+                currentUser = { uid: 'local-user-' + Date.now() };
+                document.getElementById('auth-status').innerText = 'MODE LOCAL ACTIF';
+            }
+        }
+
+        if (isFirebaseEnabled) {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    currentUser = user;
+                    document.getElementById('auth-status').innerText = `CLOUD CONNECTÉ : ${user.uid.substring(0,6)}`;
+                    loadUserData();
+                }
+            });
+        }
+
+        // ACCOUNT TYPE SELECTION
+        window.selectAccountType = (type) => {
+            console.log(`Sélection du type de compte: ${type}`);
+            selectedAccountType = type;
+            
+            // Update button styles
+            document.querySelectorAll('.account-type-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-blue-500/40', 'bg-blue-500/20', 'text-blue-400', 'border-purple-500/40', 'bg-purple-500/20', 'text-purple-400');
+                btn.classList.add('border-white/10', 'bg-white/5', 'text-slate-400');
+            });
+            
+            const selectedBtn = document.getElementById(`${type}-type-btn`);
+            if (!selectedBtn) {
+                console.error(`Bouton ${type}-type-btn non trouvé`);
+                return;
+            }
+            
+            selectedBtn.classList.remove('border-white/10', 'bg-white/5', 'text-slate-400');
+            
+            const agencyFields = document.getElementById('agency-fields');
+            const createBtnText = document.getElementById('create-btn-text');
+            
+            if (type === 'client') {
+                selectedBtn.classList.add('active', 'border-blue-500/40', 'bg-blue-500/20', 'text-blue-400');
+                if (agencyFields) agencyFields.classList.add('hidden');
+                if (createBtnText) createBtnText.textContent = 'Créer Compte Passager';
+            } else if (type === 'agency') {
+                selectedBtn.classList.add('active', 'border-purple-500/40', 'bg-purple-500/20', 'text-purple-400');
+                if (agencyFields) agencyFields.classList.remove('hidden');
+                if (createBtnText) createBtnText.textContent = 'Créer Compte Agence';
+            }
+            
+            console.log(`Type de compte sélectionné: ${type}`);
+        };
+
+        // FORM NAVIGATION
+        window.showLoginForm = () => {
+            document.getElementById('auth').classList.add('hidden-section');
+            document.getElementById('login-form').classList.remove('hidden-section');
+        };
+
+        window.showCreateForm = () => {
+            document.getElementById('login-form').classList.add('hidden-section');
+            document.getElementById('auth').classList.remove('hidden-section');
+        };
+
+        // TERMS MODAL
+        window.showTerms = () => {
+            document.getElementById('terms-modal').classList.remove('hidden');
+        };
+
+        window.closeTermsModal = () => {
+            document.getElementById('terms-modal').classList.add('hidden');
+        };
+
+        // ENHANCED ACCOUNT CREATION
+        window.handleAccountCreation = async () => {
+            console.log('=== DÉBUT CRÉATION DE COMPTE ===');
+            console.log('Début de la création de compte...');
+            
+            if (!currentUser) {
+                console.error('Aucun utilisateur connecté');
+                alert('Erreur: Aucun utilisateur connecté. Veuillez rafraîchir la page.');
+                return;
+            }
+            
+            const nameField = document.getElementById('user-name');
+            const phoneField = document.getElementById('user-phone');
+            const termsField = document.getElementById('terms-checkbox');
+            
+            console.log('Vérification des champs:', {
+                nameField: !!nameField,
+                phoneField: !!phoneField,
+                termsField: !!termsField
+            });
+            
+            if (!nameField || !phoneField || !termsField) {
+                console.error('Champs requis manquants');
+                alert('Erreur: Formulaire incomplet. Veuillez rafraîchir la page.');
+                return;
+            }
+            
+            const name = nameField.value.trim();
+            const phone = phoneField.value.trim();
+            const termsAccepted = termsField.checked;
+            
+            console.log('Données du formulaire:', { name, phone, termsAccepted, selectedAccountType });
+            
+            // Validation
+            if (!name) {
+                console.log('Nom manquant');
+                alert('Veuillez entrer votre nom complet');
+                nameField.focus();
+                return;
+            }
+            
+            if (!phone) {
+                console.log('Téléphone manquant');
+                alert('Veuillez entrer votre numéro de téléphone');
+                phoneField.focus();
+                return;
+            }
+            
+            // Validation du format de téléphone pour la région des Grands Lacs
+            const validPrefixes = ['+243', '243', '+250', '250', '+257', '257', '+256', '256', '+255', '255'];
+            const isValidPhone = validPrefixes.some(prefix => phone.startsWith(prefix));
+            
+            if (!isValidPhone) {
+                console.log('Format téléphone invalide');
+                alert('Veuillez entrer un numéro de téléphone valide de la région des Grands Lacs (+243 RDC, +250 Rwanda, +257 Burundi, +256 Uganda, +255 Tanzanie)');
+                phoneField.focus();
+                return;
+            }
+            
+            if (!termsAccepted) {
+                console.log('Conditions non acceptées');
+                alert('Veuillez accepter les conditions d\'utilisation');
+                termsField.focus();
+                return;
+            }
+            
+            let agencyName = '';
+            let agencyCity = '';
+            
+            if (selectedAccountType === 'agency') {
+                const agencyNameField = document.getElementById('agency-name');
+                const agencyCityField = document.getElementById('agency-city');
+                
+                if (agencyNameField) agencyName = agencyNameField.value.trim();
+                if (agencyCityField) agencyCity = agencyCityField.value;
+                
+                if (!agencyName) {
+                    console.log('Nom agence manquant');
+                    alert('Veuillez entrer le nom de votre agence');
+                    if (agencyNameField) agencyNameField.focus();
+                    return;
+                }
+            }
+            
+            const userData = {
+                name,
+                phone,
+                role: selectedAccountType,
+                mode: selectedMode,
+                agencyName: selectedAccountType === 'agency' ? agencyName : null,
+                agencyCity: selectedAccountType === 'agency' ? agencyCity : null,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            console.log('Données utilisateur à sauvegarder:', userData);
+            
+            try {
+                if (isFirebaseEnabled) {
+                    // Save to Firestore
+                    const userDoc = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'info');
+                    await setDoc(userDoc, userData);
+                    console.log('Sauvegarde Firebase réussie');
+                    alert("Compte créé et synchronisé avec le Backend !");
+                } else {
+                    // Mode local - sauvegarde dans localStorage
+                    localStorage.setItem('userProfile', JSON.stringify({
+                        ...userData,
+                        uid: currentUser.uid
+                    }));
+                    console.log('Sauvegarde locale réussie');
+                    alert("Compte créé et sauvegardé localement !");
+                }
+                
+                // Initialize agency subscription if needed
+                if (selectedAccountType === 'agency') {
+                    const trialExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+                    const subscriptionData = {
+                        status: 'trial',
+                        expiresAt: trialExpiry,
+                        createdAt: new Date().toISOString()
+                    };
+                    localStorage.setItem('subscriptionData', JSON.stringify(subscriptionData));
+                    console.log('Abonnement d\'essai initialisé');
+                }
+                
+                console.log('Compte créé avec succès, redirection...');
+                const targetPage = selectedAccountType === 'agency' ? 'agency-portal' : 'client-portal';
+                console.log(`Redirection vers: ${targetPage}`);
+                navigateTo(targetPage);
+                
+            } catch (error) {
+                console.error('Erreur création compte:', error);
+                alert("Erreur lors de la création du compte. Veuillez réessayer.");
+            }
+            
+            console.log('=== FIN CRÉATION DE COMPTE ===');
+        };
+
+        window.handleLogin = async () => {
+            const phone = document.getElementById('login-phone').value.trim();
+            
+            if (!phone) {
+                alert('Veuillez entrer votre numéro de téléphone');
+                return;
+            }
+            
+            // Validation du format de téléphone pour la région des Grands Lacs
+            const validPrefixes = ['+243', '243', '+250', '250', '+257', '257', '+256', '256', '+255', '255'];
+            const isValidPhone = validPrefixes.some(prefix => phone.startsWith(prefix));
+            
+            if (!isValidPhone) {
+                alert('Veuillez entrer un numéro de téléphone valide de la région des Grands Lacs (+243 RDC, +250 Rwanda, +257 Burundi, +256 Uganda, +255 Tanzanie)');
+                return;
+            }
+            
+            // Try to find existing user by phone
+            let userData = null;
+            const stored = localStorage.getItem('userProfile');
+            if (stored) {
+                const profile = JSON.parse(stored);
+                if (profile.phone === phone) {
+                    userData = profile;
+                }
+            }
+            
+            if (userData) {
+                alert(`Connexion réussie ! Bienvenue ${userData.name}`);
+                navigateTo(userData.role === 'agency' ? 'agency-portal' : 'client-portal');
+            } else {
+                alert('Aucun compte trouvé avec ce numéro. Veuillez créer un compte.');
+                showCreateForm();
+            }
+        };
+
+        // NAVIGATION
+        window.navigateTo = (id) => {
+            console.log(`Navigation vers: ${id}`);
+            
+            // Vérifier que la section existe
+            const targetSection = document.getElementById(id);
+            if (!targetSection) {
+                console.error(`Section ${id} non trouvée`);
+                return;
+            }
+            
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
+            targetSection.classList.remove('hidden-section');
+            
+            // Update mobile navigation
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.remove('active'));
+            const navBtn = document.getElementById(`nav-${id}`);
+            if (navBtn) navBtn.classList.add('active');
+            
+            window.scrollTo(0,0);
+            console.log(`Navigation vers ${id} terminée`);
+        };
+
+        // PWA Installation
+        let deferredPrompt;
+        let isInstallPromptShown = false;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (!isInstallPromptShown && window.innerWidth <= 768) {
+                setTimeout(showInstallPrompt, 3000);
+            }
+        });
+
+        window.showInstallPrompt = () => {
+            const prompt = document.getElementById('install-prompt');
+            prompt.classList.add('show');
+            isInstallPromptShown = true;
+        };
+
+        window.hideInstallPrompt = () => {
+            const prompt = document.getElementById('install-prompt');
+            prompt.classList.remove('show');
+        };
+
+        window.installApp = async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    hideInstallPrompt();
+                }
+                deferredPrompt = null;
+            } else {
+                // Fallback pour iOS
+                if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
+                    alert('Pour installer sur iOS:\n1. Appuyez sur le bouton Partager\n2. Sélectionnez "Sur l\'écran d\'accueil"');
+                } else {
+                    alert('Installation non disponible sur ce navigateur');
+                }
+                hideInstallPrompt();
+            }
+        };
+
+        window.setMode = (mode) => {
+            selectedMode = mode;
+            const isDemo = mode === 'demo';
+            document.getElementById('btn-demo').className = isDemo ? "flex-1 py-3 rounded-xl font-bold text-sm bg-yellow-500/20 text-yellow-500 border border-yellow-500/40" : "flex-1 py-3 rounded-xl font-bold text-sm text-slate-400";
+            document.getElementById('btn-real').className = !isDemo ? "flex-1 py-3 rounded-xl font-bold text-sm bg-blue-500/20 text-blue-500 border border-blue-500/40" : "flex-1 py-3 rounded-xl font-bold text-sm text-slate-400";
+        };
+
+        async function loadUserData() {
+            if (!currentUser) return;
+            
+            let userData = null;
+            
+            if (isFirebaseEnabled) {
+                try {
+                    const snap = await getDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'info'));
+                    if (snap.exists()) {
+                        userData = snap.data();
+                    }
+                } catch (error) {
+                    console.error('Erreur chargement Firebase:', error);
+                }
+            }
+            
+            // Fallback vers localStorage
+            if (!userData) {
+                const stored = localStorage.getItem('userProfile');
+                if (stored) {
+                    userData = JSON.parse(stored);
+                }
+            }
+            
+            if (userData) {
+                const displayName = userData.agencyName || userData.name || "Utilisateur";
+                document.getElementById('agency-display-name').innerText = displayName;
+                
+                // Update auth button text based on user status
+                const authBtn = document.getElementById('auth-btn');
+                if (authBtn) {
+                    authBtn.textContent = userData.role === 'agency' ? 'AGENCE' : 'PASSAGER';
+                    authBtn.onclick = () => navigateTo(userData.role === 'agency' ? 'agency-portal' : 'client-portal');
+                }
+            }
+        }
+
+        window.updateAgencyData = async () => {
+            const newName = document.getElementById('edit-agency-name').value.trim();
+            if(!newName) {
+                alert('Veuillez entrer un nom');
+                return;
+            }
+            
+            if (isFirebaseEnabled) {
+                try {
+                    const userDoc = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'info');
+                    await setDoc(userDoc, { 
+                        agencyName: newName,
+                        updatedAt: new Date().toISOString()
+                    }, { merge: true });
+                    alert("Base de données mise à jour !");
+                } catch (error) {
+                    console.error('Erreur mise à jour:', error);
+                    alert("Mise à jour locale effectuée !");
+                }
+            } else {
+                // Mode local
+                const stored = localStorage.getItem('userProfile');
+                if (stored) {
+                    const profile = JSON.parse(stored);
+                    profile.agencyName = newName;
+                    profile.updatedAt = new Date().toISOString();
+                    localStorage.setItem('userProfile', JSON.stringify(profile));
+                }
+                alert("Mise à jour locale effectuée !");
+            }
+            
+            document.getElementById('agency-display-name').innerText = newName;
+            document.getElementById('edit-agency-name').value = '';
+        };
+
+        // TRAJETS (Realtime Listeners)
+        window.searchTrajets = () => {
+            const results = document.getElementById('results-area');
+            results.innerHTML = `<div class="p-8 text-center text-slate-500">Chargement des trajets en temps réel...</div>`;
+            
+            // Simulant une lecture depuis une collection publique Firestore
+            setTimeout(() => {
+                const destination = document.getElementById('search-dest').value;
+                results.innerHTML = `
+                    <div class="glass p-8 rounded-[2rem] border-l-4 border-blue-500 fade-in">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="text-xl font-black">VOLCANO EXPRESS (SYNC)</h4>
+                                <p class="text-xs text-slate-400">Direction : ${destination}</p>
+                                <p class="text-xs text-green-400 mt-1"><i class="fas fa-wifi mr-1"></i>Temps réel connecté</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-blue-400">30$</div>
+                                <div class="text-xs text-slate-400">Prix fixe</div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                            <div class="bg-green-500/20 p-3 rounded-lg text-center">
+                                <div class="text-lg font-bold text-green-400" id="available-seats">28</div>
+                                <div class="text-xs text-green-300">Places libres</div>
+                            </div>
+                            <div class="bg-yellow-500/20 p-3 rounded-lg text-center">
+                                <div class="text-lg font-bold text-yellow-400">2</div>
+                                <div class="text-xs text-yellow-300">Réservées</div>
+                            </div>
+                            <div class="bg-blue-500/20 p-3 rounded-lg text-center">
+                                <div class="text-lg font-bold text-blue-400">08:00</div>
+                                <div class="text-xs text-blue-300">Départ</div>
+                            </div>
+                            <div class="bg-purple-500/20 p-3 rounded-lg text-center">
+                                <div class="text-lg font-bold text-purple-400">6h</div>
+                                <div class="text-xs text-purple-300">Durée</div>
+                            </div>
+                        </div>
+                        
+                        <button onclick="openReservationModal('${destination}', 30)" class="w-full btn-primary text-white py-4 rounded-xl font-bold">RÉSERVER MAINTENANT</button>
+                    </div>
+                `;
+            }, 1000);
+        };
+
+        // SYSTÈME DE RÉSERVATION
+        let currentReservation = null;
+        let paymentTimer = null;
+        let reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+        let busList = JSON.parse(localStorage.getItem('busList') || '[]');
+        let subscriptionData = JSON.parse(localStorage.getItem('subscriptionData') || '{"status": "trial", "expiresAt": null}');
+
+        // GESTION DES BUS
+        window.openAddBusModal = () => {
+            // Vérifier l'abonnement
+            if (!checkSubscriptionAccess()) {
+                alert('Abonnement requis pour ajouter des bus. Veuillez vous abonner pour 10$/mois.');
+                openSubscriptionModal();
+                return;
+            }
+            
+            document.getElementById('add-bus-modal').classList.remove('hidden');
+        };
+
+        window.closeAddBusModal = () => {
+            document.getElementById('add-bus-modal').classList.add('hidden');
+            clearBusForm();
+        };
+
+        window.saveBus = () => {
+            const name = document.getElementById('bus-name').value.trim();
+            const model = document.getElementById('bus-model').value;
+            const customModel = document.getElementById('bus-model-custom').value.trim();
+            const capacity = document.getElementById('bus-capacity').value;
+            const plate = document.getElementById('bus-plate').value.trim();
+            const description = document.getElementById('bus-description').value.trim();
+            const photoFile = document.getElementById('bus-photo').files[0];
+            
+            if (!name || !model || !capacity || !plate) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+            
+            const finalModel = model === 'Autre' ? customModel : model;
+            if (model === 'Autre' && !customModel) {
+                alert('Veuillez préciser le modèle');
+                return;
+            }
+            
+            const bus = {
+                id: 'BUS' + Date.now(),
+                name,
+                model: finalModel,
+                capacity: parseInt(capacity),
+                plate,
+                description,
+                createdAt: new Date().toISOString(),
+                photo: null
+            };
+            
+            // Traiter la photo si présente
+            if (photoFile) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    bus.photo = e.target.result;
+                    saveBusToStorage(bus);
+                };
+                reader.readAsDataURL(photoFile);
+            } else {
+                saveBusToStorage(bus);
+            }
+        };
+
+        function saveBusToStorage(bus) {
+            busList.push(bus);
+            localStorage.setItem('busList', JSON.stringify(busList));
+            updateBusList();
+            updateBusCount();
+            closeAddBusModal();
+            alert('Bus enregistré avec succès !');
+        }
+
+        function clearBusForm() {
+            document.getElementById('bus-name').value = '';
+            document.getElementById('bus-model').value = '';
+            document.getElementById('bus-model-custom').value = '';
+            document.getElementById('bus-capacity').value = '';
+            document.getElementById('bus-plate').value = '';
+            document.getElementById('bus-description').value = '';
+            document.getElementById('bus-photo').value = '';
+            document.getElementById('photo-preview').classList.add('hidden');
+            document.getElementById('bus-model-custom').classList.add('hidden');
+        }
+
+        function updateBusList() {
+            const container = document.getElementById('bus-list');
+            
+            if (busList.length === 0) {
+                container.innerHTML = '<div class="text-center text-slate-500 py-8">Aucun bus enregistré</div>';
+                return;
+            }
+            
+            container.innerHTML = busList.map(bus => `
+                <div class="bg-slate-800/50 p-6 rounded-xl border border-white/10">
+                    <div class="flex gap-4">
+                        ${bus.photo ? `<img src="${bus.photo}" class="w-24 h-24 object-cover rounded-lg" alt="${bus.name}">` : '<div class="w-24 h-24 bg-slate-700 rounded-lg flex items-center justify-center"><i class="fas fa-bus text-2xl text-slate-500"></i></div>'}
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-bold text-lg">${bus.name}</h4>
+                                    <p class="text-sm text-slate-400">${bus.model}</p>
+                                </div>
+                                <button onclick="deleteBus('${bus.id}')" class="text-red-400 hover:text-red-300 p-2">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="text-slate-400">Places:</span>
+                                    <span class="font-bold text-blue-400 ml-2">${bus.capacity}</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400">Plaque:</span>
+                                    <span class="font-bold ml-2">${bus.plate}</span>
+                                </div>
+                            </div>
+                            ${bus.description ? `<p class="text-sm text-slate-300 mt-2">${bus.description}</p>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateBusCount() {
+            document.getElementById('bus-count').textContent = busList.length;
+        }
+
+        window.deleteBus = (busId) => {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce bus ?')) {
+                busList = busList.filter(bus => bus.id !== busId);
+                localStorage.setItem('busList', JSON.stringify(busList));
+                updateBusList();
+                updateBusCount();
+            }
+        };
+
+        // GESTION ABONNEMENT
+        window.openSubscriptionModal = () => {
+            document.getElementById('subscription-modal').classList.remove('hidden');
+        };
+
+        window.closeSubscriptionModal = () => {
+            document.getElementById('subscription-modal').classList.add('hidden');
+            document.getElementById('subscription-reference').value = '';
+        };
+
+        window.confirmSubscription = () => {
+            const reference = document.getElementById('subscription-reference').value.trim();
+            
+            if (!reference) {
+                alert('Veuillez entrer la référence de paiement');
+                return;
+            }
+            
+            // Activer l'abonnement
+            subscriptionData = {
+                status: 'active',
+                expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 jours
+                paymentReference: reference,
+                activatedAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('subscriptionData', JSON.stringify(subscriptionData));
+            updateSubscriptionStatus();
+            closeSubscriptionModal();
+            
+            alert('Abonnement activé avec succès ! Vous avez maintenant accès à toutes les fonctionnalités.');
+        };
+
+        function checkSubscriptionAccess() {
+            if (subscriptionData.status === 'active') {
+                const now = new Date().getTime();
+                const expiry = new Date(subscriptionData.expiresAt).getTime();
+                return now < expiry;
+            }
+            return subscriptionData.status === 'trial'; // Version d'essai
+        }
+
+        function updateSubscriptionStatus() {
+            const banner = document.getElementById('subscription-banner');
+            const statusText = document.getElementById('subscription-status');
+            
+            if (subscriptionData.status === 'active') {
+                const daysLeft = Math.ceil((new Date(subscriptionData.expiresAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+                banner.className = 'glass p-6 rounded-2xl mb-8 border-l-4 border-green-500';
+                statusText.textContent = `Statut: Abonné (${daysLeft} jours restants)`;
+                banner.querySelector('button').textContent = 'Renouveler';
+            } else {
+                banner.className = 'glass p-6 rounded-2xl mb-8 border-l-4 border-yellow-500';
+                statusText.textContent = 'Statut: Version d\'essai (7 jours restants)';
+                banner.querySelector('button').textContent = 'S\'abonner';
+            }
+        }
+
+        // GESTION PHOTO PREVIEW
+        document.addEventListener('DOMContentLoaded', () => {
+            const busModelSelect = document.getElementById('bus-model');
+            const customModelInput = document.getElementById('bus-model-custom');
+            const photoInput = document.getElementById('bus-photo');
+            const photoPreview = document.getElementById('photo-preview');
+            const previewImage = document.getElementById('preview-image');
+            
+            if (busModelSelect) {
+                busModelSelect.addEventListener('change', (e) => {
+                    if (e.target.value === 'Autre') {
+                        customModelInput.classList.remove('hidden');
+                    } else {
+                        customModelInput.classList.add('hidden');
+                        customModelInput.value = '';
+                    }
+                });
+            }
+            
+            if (photoInput) {
+                photoInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            previewImage.src = e.target.result;
+                            photoPreview.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        photoPreview.classList.add('hidden');
+                    }
+                });
+            }
+        });
+
+        window.openReservationModal = (destination, price) => {
+            currentReservation = { destination, price };
+            
+            document.getElementById('reservation-details').innerHTML = `
+                <div class="bg-slate-800 p-4 rounded-xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">Destination:</span>
+                        <span class="text-blue-400">${destination}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold">Prix:</span>
+                        <span class="text-green-400 font-bold">${price}$</span>
+                    </div>
+                </div>
+            `;
+            
+            // Générer les places disponibles (1-30, sauf celles réservées)
+            const seatSelect = document.getElementById('seat-selection');
+            seatSelect.innerHTML = '<option value="">Choisir une place</option>';
+            const reservedSeats = [5, 12]; // Simulation de places déjà réservées
+            
+            for (let i = 1; i <= 30; i++) {
+                if (!reservedSeats.includes(i)) {
+                    seatSelect.innerHTML += `<option value="${i}">Place ${i}</option>`;
+                }
+            }
+            
+            document.getElementById('reservation-modal').classList.remove('hidden');
+        };
+
+        window.closeReservationModal = () => {
+            document.getElementById('reservation-modal').classList.add('hidden');
+            currentReservation = null;
+        };
+
+        window.confirmReservation = () => {
+            const name = document.getElementById('passenger-name').value.trim();
+            const phone = document.getElementById('passenger-phone').value.trim();
+            const seat = document.getElementById('seat-selection').value;
+            
+            if (!name || !phone || !seat) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+            
+            // Créer la réservation
+            const reservation = {
+                id: 'RES' + Date.now(),
+                name,
+                phone,
+                seat,
+                destination: currentReservation.destination,
+                price: currentReservation.price,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString() // 2 heures
+            };
+            
+            reservations.push(reservation);
+            localStorage.setItem('reservations', JSON.stringify(reservations));
+            
+            closeReservationModal();
+            openPaymentModal(reservation);
+            updateAgencyDashboard();
+        };
+
+        window.openPaymentModal = (reservation) => {
+            currentReservation = reservation;
+            
+            // Démarrer le timer de 2 heures
+            startPaymentTimer(reservation.expiresAt);
+            
+            document.getElementById('payment-modal').classList.remove('hidden');
+        };
+
+        window.closePaymentModal = () => {
+            document.getElementById('payment-modal').classList.add('hidden');
+            if (paymentTimer) {
+                clearInterval(paymentTimer);
+                paymentTimer = null;
+            }
+        };
+
+        window.confirmPayment = () => {
+            const reference = document.getElementById('payment-reference').value.trim();
+            
+            if (!reference) {
+                alert('Veuillez entrer la référence de paiement');
+                return;
+            }
+            
+            // Marquer comme payé
+            const index = reservations.findIndex(r => r.id === currentReservation.id);
+            if (index !== -1) {
+                reservations[index].status = 'paid';
+                reservations[index].paymentReference = reference;
+                reservations[index].paidAt = new Date().toISOString();
+                localStorage.setItem('reservations', JSON.stringify(reservations));
+            }
+            
+            // Générer le brevet de paiement
+            generatePaymentReceipt(reservations[index]);
+            
+            closePaymentModal();
+            updateAgencyDashboard();
+            
+            alert('Paiement confirmé ! Votre brevet de paiement a été téléchargé.');
+        };
+
+        function startPaymentTimer(expiresAt) {
+            const updateTimer = () => {
+                const now = new Date().getTime();
+                const expiry = new Date(expiresAt).getTime();
+                const timeLeft = expiry - now;
+                
+                if (timeLeft <= 0) {
+                    // Expirer la réservation
+                    const index = reservations.findIndex(r => r.id === currentReservation.id);
+                    if (index !== -1 && reservations[index].status === 'pending') {
+                        reservations[index].status = 'expired';
+                        localStorage.setItem('reservations', JSON.stringify(reservations));
+                        updateAgencyDashboard();
+                    }
+                    
+                    document.getElementById('countdown-display').textContent = '00:00:00';
+                    closePaymentModal();
+                    alert('Temps écoulé ! Votre réservation a été annulée.');
+                    return;
+                }
+                
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown-display').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            };
+            
+            updateTimer();
+            paymentTimer = setInterval(updateTimer, 1000);
+        }
+
+        function generatePaymentReceipt(reservation) {
+            const receiptContent = `
+GRAND LAC EXPRESS - BREVET DE PAIEMENT
+=====================================
+
+Réservation: ${reservation.id}
+Passager: ${reservation.name}
+Téléphone: ${reservation.phone}
+Destination: ${reservation.destination}
+Place: ${reservation.seat}
+Prix: ${reservation.price}$
+
+Référence paiement: ${reservation.paymentReference}
+Date de paiement: ${new Date(reservation.paidAt).toLocaleString('fr-FR')}
+
+IMPORTANT: Présentez ce brevet lors de l'embarquement.
+
+Contact: +243 973 664 102
+Email: kennedymarcellin@gmail.com
+            `;
+            
+            const blob = new Blob([receiptContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `brevet_${reservation.id}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function updateAgencyDashboard() {
+            const paidCount = reservations.filter(r => r.status === 'paid').length;
+            const pendingCount = reservations.filter(r => r.status === 'pending').length;
+            const expiredCount = reservations.filter(r => r.status === 'expired').length;
+            
+            document.getElementById('paid-count').textContent = paidCount;
+            document.getElementById('pending-count').textContent = pendingCount;
+            document.getElementById('expired-count').textContent = expiredCount;
+            
+            const listContainer = document.getElementById('reservations-list');
+            
+            if (reservations.length === 0) {
+                listContainer.innerHTML = '<div class="text-center text-slate-500 py-8">Aucune réservation pour le moment</div>';
+                return;
+            }
+            
+            listContainer.innerHTML = reservations.map(r => {
+                const statusColors = {
+                    paid: 'bg-green-500/20 border-green-500/40 text-green-400',
+                    pending: 'bg-yellow-500/20 border-yellow-500/40 text-yellow-400',
+                    expired: 'bg-red-500/20 border-red-500/40 text-red-400'
+                };
+                
+                const statusTexts = {
+                    paid: 'Payée',
+                    pending: 'En attente',
+                    expired: 'Expirée'
+                };
+                
+                return `
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-white/10">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <div class="font-bold">${r.name}</div>
+                                <div class="text-sm text-slate-400">${r.phone}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-bold">${r.destination}</div>
+                                <div class="text-xs text-slate-400">Place ${r.seat}</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-sm text-slate-400">${r.id}</div>
+                            <div class="px-3 py-1 rounded-full text-xs font-bold ${statusColors[r.status]}">${statusTexts[r.status]}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Vérifier les réservations expirées au chargement
+        function checkExpiredReservations() {
+            const now = new Date().getTime();
+            let updated = false;
+            
+            reservations.forEach(r => {
+                if (r.status === 'pending' && new Date(r.expiresAt).getTime() <= now) {
+                    r.status = 'expired';
+                    updated = true;
+                }
+            });
+            
+            if (updated) {
+                localStorage.setItem('reservations', JSON.stringify(reservations));
+                updateAgencyDashboard();
+            }
+        }
+
+        initAuth();
+        
+        // Attendre que le DOM soit complètement chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM chargé, initialisation...');
+            setTimeout(initializeApp, 500);
+        });
+        
+        // Fallback si DOMContentLoaded a déjà été déclenché
+        if (document.readyState === 'loading') {
+            console.log('DOM en cours de chargement...');
+        } else {
+            console.log('DOM déjà chargé, initialisation immédiate...');
+            setTimeout(initializeApp, 500);
+        }
+        
+        // Initialiser l'application
+        function initializeApp() {
+            console.log('Initialisation de l\'application...');
+            
+            // Vérifier que tous les éléments DOM sont présents
+            const requiredElements = [
+                'auth-status', 'auth-btn', 'user-name', 'user-phone', 
+                'agency-name', 'agency-city', 'terms-checkbox',
+                'client-type-btn', 'agency-type-btn', 'create-btn-text'
+            ];
+            
+            let missingElements = [];
+            requiredElements.forEach(id => {
+                if (!document.getElementById(id)) {
+                    missingElements.push(id);
+                }
+            });
+            
+            if (missingElements.length > 0) {
+                console.warn('Éléments DOM manquants:', missingElements);
+            }
+            
+            // Initialiser l'état par défaut
+            selectAccountType('client');
+            console.log('État par défaut initialisé');
+            
+            console.log('Application initialisée avec succès');
+        }
+        
+        // Initialiser le tableau de bord et vérifier les réservations expirées
+        setTimeout(() => {
+            initializeApp();
+            checkExpiredReservations();
+            updateAgencyDashboard();
+            updateBusList();
+            updateBusCount();
+            updateSubscriptionStatus();
+        }, 1000);
+        
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
